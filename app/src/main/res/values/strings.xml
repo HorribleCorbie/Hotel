@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Hotel</string>
+    <string name="button_text">Нажми</string>
+    <string name="button_add">Добавить</string>
+    <string name="button_update">Изменить</string>
+    <string name="button_delete">Удалить</string>
+    <string name="button_find">Найти</string>
+</resources>
