@@ -1,6 +1,7 @@
 package com.project.hotel;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnFind;
     private Button btnDel;
 
-    HotelApi api;
+    public static HotelApi api = RetrofitClient.getInstance().create(HotelApi.class);
     //говорим Retrofit создать объект, который поможет приложению отправлять запросы и получать ответы от API.
     TableLayout tableLayout;
 
@@ -46,12 +48,17 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
         btnAdd=findViewById(R.id.btnAdd);
+        btnAdd.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, AddActivity.class);
+            startActivity(intent);
+        });
+
         btnUpdate=findViewById(R.id.btnUpdate);
         btnFind=findViewById(R.id.btnFind);
         btnDel=findViewById(R.id.btnDel);
         tableLayout = findViewById(R.id.tableRooms);
-        api = RetrofitClient.getInstance().create(HotelApi.class);
-        api.getAllRooms().enqueue(new Callback<List<Room>>() {
+       // api = RetrofitClient.getInstance().create(HotelApi.class);
+        api.getAllRooms().enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<List<Room>> call, Response<List<Room>> response) {
                 if (response.isSuccessful() && response.body() != null) {
@@ -81,16 +88,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void TableRoomsGenerated(TableLayout table, String[] options) {
         TableRow row = new TableRow(this);
+        GradientDrawable border = new GradientDrawable();
+        border.setStroke(1, Color.BLACK);
         for (String str: options) {
             TextView newText = new TextView(this);
             newText.setText(str);
             newText.setGravity(Gravity.CENTER);
-            GradientDrawable border = new GradientDrawable();
-            border.setStroke(1, Color.BLACK);
-            newText.setBackground(border);
             row.addView(newText, new TableRow.LayoutParams(
                     TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 1f));
         }
+        row.setPadding(5, 5, 5, 5);
+        row.setBackground(border);
         table.addView(row);
     }
 }

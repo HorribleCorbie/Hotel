@@ -5,4 +5,11 @@
     <string name="button_update">Изменить</string>
     <string name="button_delete">Удалить</string>
     <string name="button_find">Найти</string>
+    <string name="button_ready">Готово</string>
+    <string name="button_close">Закрыть</string>
+    <string name="number_room">Номер</string>
+    <string name="price_room">Цена</string>
+    <string name="capacity_room">Вместимость</string>
+    <string name="comfort_room">Класс</string>
+    <string name="area_room">Площадь</string>
 </resources>

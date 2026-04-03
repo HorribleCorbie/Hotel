@@ -15,6 +15,12 @@ public interface HotelApi {
     @GET("rooms/{id}")
     Call<Room> getRoom(@Path("id") Long id);
 
+    @GET("rooms/number/{number}")
+    Call<Room> getRoom(@Path("number") int number);
+
+    @GET("rooms/check")
+    boolean check(@Query("number") int number);
+
     @POST("rooms")
     Call<Room> createRoom(@Body Room room);
 

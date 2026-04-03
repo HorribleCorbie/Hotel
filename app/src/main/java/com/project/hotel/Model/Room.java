@@ -8,6 +8,7 @@ public class Room {
     public float area; //площадь
 
     public Room(int number, float price, int capacity, String comfort, float area){
+        this.id = null;
         this.number = number;
         this.price = price;
         this.capacity = capacity;
