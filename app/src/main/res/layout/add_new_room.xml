@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg1"
-    tools:context=".AddActivity">
+    tools:context=".View.AddActivity">
 
     <Button
         android:id="@+id/btnReady"

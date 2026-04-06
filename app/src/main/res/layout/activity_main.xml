@@ -6,12 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg1"
-    tools:context=".MainActivity">
+    tools:context=".View.MainActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
         style="@style/TextAppearance.AppCompat.Widget.ActionBar.Menu"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:orientation="horizontal"
@@ -74,5 +74,17 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
     </TableLayout>
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="190dp"
+        android:layout_height="81dp"
+        android:layout_marginTop="52dp"
+        android:text="@string/button_back"
+        android:textSize="34sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableRooms" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

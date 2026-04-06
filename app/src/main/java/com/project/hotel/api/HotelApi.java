@@ -1,9 +1,7 @@
 package com.project.hotel.api;
 
 import com.project.hotel.Model.Room;
-
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -19,7 +17,7 @@ public interface HotelApi {
     Call<Room> getRoom(@Path("number") int number);
 
     @GET("rooms/check")
-    boolean check(@Query("number") int number);
+    Call<Boolean> check(@Query("number") int number);
 
     @POST("rooms")
     Call<Room> createRoom(@Body Room room);
@@ -27,6 +25,6 @@ public interface HotelApi {
     @PUT("rooms/{id}")
     Call<Room> updateRoom(@Path("id") Long id, @Body Room room);
 
-    @DELETE("rooms/{id}")
-    Call<Void> deleteRoom(@Path("id") Long id);
+    @DELETE("rooms/{number}")
+    Call<Void> deleteRoom(@Path("number") int number);
 }

@@ -1,4 +1,4 @@
-package com.project.hotel;
+package com.project.hotel.View;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -6,28 +6,31 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
+import com.project.hotel.Model.OnRoomFoundListener;
 import com.project.hotel.Model.Room;
+import com.project.hotel.R;
 import com.project.hotel.api.HotelApi;
 import com.project.hotel.api.RetrofitClient;
+
+import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Callback;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnRoomFoundListener {
 
+    private Button btnBack;
     private Button btnAdd;
     private Button btnUpdate;
     private Button btnFind;
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        btnBack = findViewById(R.id.btnBack);
         btnAdd=findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, AddActivity.class);
@@ -54,10 +58,43 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnUpdate=findViewById(R.id.btnUpdate);
+        btnUpdate.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, UpdateActivity.class);
+            startActivity(intent);
+        });
+
         btnFind=findViewById(R.id.btnFind);
+        btnFind.setOnClickListener(v -> {
+            EditDialogFragment dialog = new EditDialogFragment();
+            Bundle args = new Bundle();
+            args.putString("title", "Поиск");
+            args.putString("choice", "find");
+            dialog.setArguments(args);
+            dialog.show(getSupportFragmentManager(), "custom");
+        });
+
         btnDel=findViewById(R.id.btnDel);
+        btnDel.setOnClickListener(v -> {
+            EditDialogFragment dialog = new EditDialogFragment();
+            Bundle args = new Bundle();
+            args.putString("title", "Удаление");
+            args.putString("choice", "delete");
+            dialog.setArguments(args);
+            dialog.show(getSupportFragmentManager(), "custom");
+        });
+
+
         tableLayout = findViewById(R.id.tableRooms);
-       // api = RetrofitClient.getInstance().create(HotelApi.class);
+        ShowRoomsfromDB();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ShowRoomsfromDB();
+    }
+
+    private void ShowRoomsfromDB() {
         api.getAllRooms().enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<List<Room>> call, Response<List<Room>> response) {
@@ -77,10 +114,10 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void showRooms(List<Room> rooms) {
         tableLayout.removeAllViews();
-        TableRoomsGenerated(tableLayout, new String[]{"ID","Number", "Price", "Capacity",
-        "Comfort", "Area"});
+        TableRoomsGenerated(tableLayout, new String[]{"Номер", "Цена", "Вмещаемость",
+        "Класс", "Площадь"});
         for (Room room : rooms) {
-            TableRoomsGenerated(tableLayout, new String[]{String.valueOf(room.id),String.valueOf(room.number), String.valueOf(room.price),
+            TableRoomsGenerated(tableLayout, new String[]{String.valueOf(room.number), String.valueOf(room.price),
                     String.valueOf(room.capacity), room.comfort,
                     String.valueOf(room.area)});
         }
@@ -100,5 +137,22 @@ public class MainActivity extends AppCompatActivity {
         row.setPadding(5, 5, 5, 5);
         row.setBackground(border);
         table.addView(row);
+    }
+
+    @Override
+    public void onRoomFound(Room room) {
+        btnBack.setVisibility(View.VISIBLE);
+        List<Room> roomList = new ArrayList<>();
+        roomList.add(room);
+        showRooms(roomList);
+        btnBack.setOnClickListener(v -> {
+            ShowRoomsfromDB();
+            btnBack.setVisibility(View.GONE);
+        });
+    }
+
+    @Override
+    public void onRoomDeleted(){
+        ShowRoomsfromDB();
     }
 }
