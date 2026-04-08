@@ -73,6 +73,9 @@ public class EditDialogFragment extends DialogFragment {
                             case "delete":
                                 deleteRoom(number);
                                 break;
+                            case "select":
+                                selectRoom(number);
+                                break;
                         }
                     }
                 }
@@ -97,6 +100,22 @@ public class EditDialogFragment extends DialogFragment {
         });
     }
 
+    private void selectRoom(int number) {
+        MainActivity.api.getRoom(number).enqueue(new Callback<Room>() {
+            @Override
+            public void onResponse(Call<Room> call, Response<Room> response) {
+                if(response.isSuccessful() && response.body()!=null)
+                {
+                    Room room = response.body();
+                    Found.selectRoom(room);
+                }
+            }
+            @Override
+            public void onFailure(Call<Room> call, Throwable t) {
+
+            }
+        });
+    }
     private void outputRoom(int number) {
         MainActivity.api.getRoom(number).enqueue(new Callback<Room>() {
             @Override

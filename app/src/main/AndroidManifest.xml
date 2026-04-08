@@ -21,6 +21,9 @@
             android:name=".View.AddActivity"
             android:exported="false" />
         <activity
+            android:name=".View.UpdateActivity"
+            android:exported="false" />
+        <activity
             android:name=".View.MainActivity"
             android:exported="true">
             <intent-filter>

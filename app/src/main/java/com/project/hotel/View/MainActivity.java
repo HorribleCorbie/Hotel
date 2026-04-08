@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -59,8 +61,12 @@ public class MainActivity extends AppCompatActivity implements OnRoomFoundListen
 
         btnUpdate=findViewById(R.id.btnUpdate);
         btnUpdate.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, UpdateActivity.class);
-            startActivity(intent);
+            EditDialogFragment dialog = new EditDialogFragment();
+            Bundle args = new Bundle();
+            args.putString("title", "Выбор комнаты");
+            args.putString("choice", "select");
+            dialog.setArguments(args);
+            dialog.show(getSupportFragmentManager(), "custom");
         });
 
         btnFind=findViewById(R.id.btnFind);
@@ -117,9 +123,7 @@ public class MainActivity extends AppCompatActivity implements OnRoomFoundListen
         TableRoomsGenerated(tableLayout, new String[]{"Номер", "Цена", "Вмещаемость",
         "Класс", "Площадь"});
         for (Room room : rooms) {
-            TableRoomsGenerated(tableLayout, new String[]{String.valueOf(room.number), String.valueOf(room.price),
-                    String.valueOf(room.capacity), room.comfort,
-                    String.valueOf(room.area)});
+            TableRoomsGenerated(tableLayout,room.RoomtoString());
         }
     }
 
@@ -154,5 +158,18 @@ public class MainActivity extends AppCompatActivity implements OnRoomFoundListen
     @Override
     public void onRoomDeleted(){
         ShowRoomsfromDB();
+    }
+
+    @Override
+    public void selectRoom(Room room)
+    {
+        Intent intent = new Intent(MainActivity.this, UpdateActivity.class);
+        intent.putExtra("number", room.getNumber());
+        intent.putExtra("price", room.getPrice());
+        intent.putExtra("capacity", room.getCapacity());
+        intent.putExtra("area", room.getArea());
+        intent.putExtra("comfort", room.getComfort());
+        startActivity(intent);
+
     }
 }

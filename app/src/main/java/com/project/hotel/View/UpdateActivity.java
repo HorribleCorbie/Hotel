@@ -22,7 +22,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddActivity extends AppCompatActivity {
+public class UpdateActivity extends AppCompatActivity {
 
     private Button close;
     private Button add;
@@ -43,7 +43,7 @@ public class AddActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         close = findViewById(R.id.btnClose);
         close.setOnClickListener(v -> {
-            Intent intent = new Intent(AddActivity.this, MainActivity.class);
+            Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
         });
@@ -69,6 +69,26 @@ public class AddActivity extends AppCompatActivity {
             }
         };
         comfort.setOnItemSelectedListener(itemSelectedListener);
+
+        Intent intent = getIntent();
+
+        int number1 = intent.getIntExtra("number", 0);
+        float price1 = intent.getFloatExtra("price", 0f);
+        int capacity1 = intent.getIntExtra("capacity", 0);
+        float area1 = intent.getFloatExtra("area", 0f);
+        String comfort1 = intent.getStringExtra("comfort");
+
+        if (comfort1 != null) {
+            int spinnerPosition = adapter.getPosition(comfort1);
+
+            comfort.setSelection(spinnerPosition);
+        }
+
+        number.setText(String.valueOf(number1));
+        price.setText(String.valueOf(price1));
+        capacity.setText(String.valueOf(capacity1));
+        area.setText(String.valueOf(area1));
+
         add.setOnClickListener(v -> {
             int numField;
             float priceField;
@@ -89,14 +109,14 @@ public class AddActivity extends AppCompatActivity {
                     if (response.isSuccessful() && response.body() !=null)
                     {
                         boolean isRoomExist = response.body();
-                        if (!isRoomExist)
+                        if (!isRoomExist || number1==numField)
                         {
                             Room room = new Room(numField,priceField,capacityField, item, areaField );
-                            MethodcreateRoom(room);
+                            MethodUpdateRoom(room, numField);
                         }
                     }
                     else {
-                        Toast.makeText(AddActivity.this,
+                        Toast.makeText(UpdateActivity.this,
                                 "Комната уже существует",
                                 Toast.LENGTH_SHORT).show();
                     }
@@ -111,23 +131,30 @@ public class AddActivity extends AppCompatActivity {
 
     }
 
-    private void MethodcreateRoom(Room room) {
-        MainActivity.api.createRoom(room).enqueue(new Callback<Room>() {
+    private void MethodUpdateRoom(Room room, int number) {
+        MainActivity.api.updateRoom(room,number).enqueue(new Callback<Boolean>() {
             @Override
-            public void onResponse(Call<Room> call, Response<Room> response) {
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 if (response.isSuccessful() && response.body() !=null)
                 {
-                    Toast.makeText(AddActivity.this,
-                            "Комната успешно добавлена!",
-                            Toast.LENGTH_LONG).show();
-                    finish();
+                    if (response.body()){
+                        Toast.makeText(UpdateActivity.this,
+                                "Комната успешно изменена!",
+                                Toast.LENGTH_LONG).show();
+                        finish();}
+                    else {
+                        Toast.makeText(UpdateActivity.this,
+                                "Ошибка изменения",
+                                Toast.LENGTH_LONG).show();
+                        finish();
+                    }
                 }
             }
 
             @Override
-            public void onFailure(Call<Room> call, Throwable t) {
+            public void onFailure(Call<Boolean> call, Throwable t) {
                 Log.e("MY_API_ERROR", "Ошибка запроса: " + t.getMessage());
             }
         });
-    }
+  }
 }

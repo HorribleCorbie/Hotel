@@ -22,8 +22,8 @@ public interface HotelApi {
     @POST("rooms")
     Call<Room> createRoom(@Body Room room);
 
-    @PUT("rooms/{id}")
-    Call<Room> updateRoom(@Path("id") Long id, @Body Room room);
+    @PUT("rooms/{number}")
+    Call<Boolean> updateRoom( @Body Room room, @Path("number") int number);
 
     @DELETE("rooms/{number}")
     Call<Void> deleteRoom(@Path("number") int number);
