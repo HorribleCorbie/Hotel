@@ -7,11 +7,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import com.project.hotel.Model.OnRoomFoundListener;
 import com.project.hotel.Model.Room;
 import com.project.hotel.R;
+import com.project.hotel.api.RetrofitClient;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -57,26 +61,35 @@ public class EditDialogFragment extends DialogFragment {
                 .create();
     }
 
+    private void showErrorToast() {
+        if (getContext() != null) {
+            Toast.makeText(getContext(), "Комната не существует", Toast.LENGTH_SHORT).show();
+        }
+    }
     private void existingRoom(int number, String choice) {
-        MainActivity.api.check(number).enqueue(new Callback<Boolean>() {
+        RetrofitClient.api.check(number).enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 if (response.isSuccessful() && response.body()!=null)
                 {
-                    if(response.body())
-                    {
-                        switch (choice)
-                        {
-                            case "find":
-                                outputRoom(number);
-                                break;
-                            case "delete":
-                                deleteRoom(number);
-                                break;
-                            case "select":
-                                selectRoom(number);
-                                break;
+                    try {
+                        if (response.body()) {
+                            switch (choice) {
+                                case "find":
+                                    outputRoom(number);
+                                    break;
+                                case "delete":
+                                    deleteRoom(number);
+                                    break;
+                                case "select":
+                                    selectRoom(number);
+                                    break;
+                            }
+                        } else {
+                            showErrorToast();
                         }
+                    }catch (NullPointerException e){
+                            showErrorToast();
                     }
                 }
             }
@@ -85,9 +98,8 @@ public class EditDialogFragment extends DialogFragment {
             }
         });
     }
-
     private void deleteRoom(int number){
-        MainActivity.api.deleteRoom(number).enqueue(new Callback<Void>() {
+        RetrofitClient.api.deleteRoom(number).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 Found.onRoomDeleted();
@@ -101,7 +113,7 @@ public class EditDialogFragment extends DialogFragment {
     }
 
     private void selectRoom(int number) {
-        MainActivity.api.getRoom(number).enqueue(new Callback<Room>() {
+        RetrofitClient.api.getRoom(number).enqueue(new Callback<Room>() {
             @Override
             public void onResponse(Call<Room> call, Response<Room> response) {
                 if(response.isSuccessful() && response.body()!=null)
@@ -117,7 +129,7 @@ public class EditDialogFragment extends DialogFragment {
         });
     }
     private void outputRoom(int number) {
-        MainActivity.api.getRoom(number).enqueue(new Callback<Room>() {
+        RetrofitClient.api.getRoom(number).enqueue(new Callback<Room>() {
             @Override
             public void onResponse(Call<Room> call, Response<Room> response) {
                 if(response.isSuccessful() && response.body()!=null)

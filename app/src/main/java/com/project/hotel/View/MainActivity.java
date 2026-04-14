@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -38,8 +40,6 @@ public class MainActivity extends AppCompatActivity implements OnRoomFoundListen
     private Button btnFind;
     private Button btnDel;
 
-    public static HotelApi api = RetrofitClient.getInstance().create(HotelApi.class);
-    //говорим Retrofit создать объект, который поможет приложению отправлять запросы и получать ответы от API.
     TableLayout tableLayout;
 
     @Override
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements OnRoomFoundListen
     }
 
     private void ShowRoomsfromDB() {
-        api.getAllRooms().enqueue(new Callback<>() {
+        RetrofitClient.api.getAllRooms().enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<List<Room>> call, Response<List<Room>> response) {
                 if (response.isSuccessful() && response.body() != null) {
@@ -171,5 +171,24 @@ public class MainActivity extends AppCompatActivity implements OnRoomFoundListen
         intent.putExtra("comfort", room.getComfort());
         startActivity(intent);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_admin, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.LogOut) {
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.project.hotel.Model.Room;
 import com.project.hotel.R;
+import com.project.hotel.api.RetrofitClient;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,9 +29,9 @@ public class AddActivity extends AppCompatActivity {
     private Button add;
     private EditText number;
     public EditText price;
-    public EditText capacity; // вмещаемость
+    public EditText capacity;
     public Spinner comfort;
-    public EditText area; //площадь
+    public EditText area;
     String[] classComfort = { "economy", "standard", "luxe"};
     String item;
 
@@ -99,7 +100,7 @@ public class AddActivity extends AppCompatActivity {
                 Toast.makeText(this, "Вводите только числа.", Toast.LENGTH_SHORT).show();
                 return;
             }
-            MainActivity.api.check(numField).enqueue(new Callback<Boolean>() {
+            RetrofitClient.api.check(numField).enqueue(new Callback<Boolean>() {
                 @Override
                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                     if (response.isSuccessful() && response.body() !=null)
@@ -128,7 +129,7 @@ public class AddActivity extends AppCompatActivity {
     }
 
     private void MethodcreateRoom(Room room) {
-        MainActivity.api.createRoom(room).enqueue(new Callback<Room>() {
+        RetrofitClient.api.createRoom(room).enqueue(new Callback<Room>() {
             @Override
             public void onResponse(Call<Room> call, Response<Room> response) {
                 if (response.isSuccessful() && response.body() !=null)

@@ -14,4 +14,10 @@
     <string name="area_room">Площадь</string>
     <string name="edit_number">Введите номер комнаты</string>
     <string name="button_back">Назад</string>
+    <string name="Login">Ваш Логин</string>
+    <string name="greetings">Введите ваш логин и пароль</string>
+    <string name="Password">Ваш Пароль</string>
+    <string name="register">"Если нет аккаунта, зарегистрируйтесь "</string>
+    <string name="register_name">Создать аккаунт</string>
+    <string name="log_in">Войти</string>
 </resources>

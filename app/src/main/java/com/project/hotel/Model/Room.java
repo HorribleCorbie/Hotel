@@ -2,9 +2,9 @@ package com.project.hotel.Model;
 public class Room {
     public int number;
     public float price;
-    public int capacity; // вмещаемость
+    public int capacity;
     public String comfort;
-    public float area; //площадь
+    public float area;
     public int getNumber() {
         return number;
     }
