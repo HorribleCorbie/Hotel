@@ -79,6 +79,22 @@ public class AddActivity extends AppCompatActivity {
                 priceField = Float.parseFloat(price.getText().toString());
                 capacityField  = Integer.parseInt(capacity.getText().toString());
                 areaField  = Float.parseFloat(area.getText().toString());
+                if (numField>100 || numField<=0){
+                    Toast.makeText(this, "Номер должен быть от 1 до 100.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (priceField>500 || priceField<30){
+                    Toast.makeText(this, "Цена за номер должна быть в диапазоне от 30 до 500.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (areaField>150 || areaField<20){
+                    Toast.makeText(this, "Площадь номера должна быть в диапазоне от 20 до 150.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (capacityField>4 || capacityField<=0){
+                    Toast.makeText(this, "Вместимость номера должна быть в диапазоне от 1 до 4.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }catch (NumberFormatException e){
                 Toast.makeText(this, "Вводите только числа.", Toast.LENGTH_SHORT).show();
                 return;
