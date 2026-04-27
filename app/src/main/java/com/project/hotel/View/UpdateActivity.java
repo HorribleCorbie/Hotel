@@ -48,6 +48,7 @@ public class UpdateActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+
         ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, classComfort);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         add=findViewById(R.id.btnReady);
@@ -57,6 +58,7 @@ public class UpdateActivity extends AppCompatActivity {
         comfort = findViewById(R.id.spClassComfort);
         comfort.setAdapter(adapter);
         area= findViewById(R.id.editArea);
+
         AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
@@ -120,6 +122,7 @@ public class UpdateActivity extends AppCompatActivity {
                 Toast.makeText(this, "Вводите только числа.", Toast.LENGTH_SHORT).show();
                 return;
             }
+
             RetrofitClient.api.check(numField).enqueue(new Callback<Boolean>() {
                 @Override
                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {

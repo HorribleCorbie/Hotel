@@ -34,6 +34,13 @@ public class User {
         this.name = name;
     }
 
+    public User(User oldUser) {
+        this.login = oldUser.getLogin();
+        this.password = oldUser.getPassword();
+        this.name = oldUser.getName();
+        this.role = oldUser.getRole();
+    }
+
     public User(String login, String password, String name, String role) {
         this.login = login;
         this.password = password;

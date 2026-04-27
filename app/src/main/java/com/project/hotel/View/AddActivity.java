@@ -42,12 +42,14 @@ public class AddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_new_room);
         EdgeToEdge.enable(this);
+
         close = findViewById(R.id.btnClose);
         close.setOnClickListener(v -> {
             Intent intent = new Intent(AddActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
         });
+
         ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, classComfort);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         add=findViewById(R.id.btnReady);
@@ -57,6 +59,7 @@ public class AddActivity extends AppCompatActivity {
         comfort = findViewById(R.id.spClassComfort);
         comfort.setAdapter(adapter);
         area= findViewById(R.id.editArea);
+
         AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
@@ -69,7 +72,9 @@ public class AddActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         };
+
         comfort.setOnItemSelectedListener(itemSelectedListener);
+
         add.setOnClickListener(v -> {
             int numField;
             float priceField;
@@ -100,6 +105,7 @@ public class AddActivity extends AppCompatActivity {
                 Toast.makeText(this, "Вводите только числа.", Toast.LENGTH_SHORT).show();
                 return;
             }
+
             RetrofitClient.api.check(numField).enqueue(new Callback<Boolean>() {
                 @Override
                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
@@ -111,11 +117,11 @@ public class AddActivity extends AppCompatActivity {
                             Room room = new Room(numField,priceField,capacityField, item, areaField );
                             MethodcreateRoom(room);
                         }
-                    }
-                    else {
-                        Toast.makeText(AddActivity.this,
-                                "Комната уже существует",
-                                Toast.LENGTH_SHORT).show();
+                        else {
+                            Toast.makeText(AddActivity.this,
+                                    "Комната уже существует",
+                                    Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
 

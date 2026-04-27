@@ -20,4 +20,8 @@
     <string name="register">"Если нет аккаунта, зарегистрируйтесь "</string>
     <string name="register_name">Создать аккаунт</string>
     <string name="log_in">Войти</string>
+    <string name="new_register">Регистрация</string>
+    <string name="username">Ваше имя</string>
+    <string name="bookings">Бронирование</string>
+    <string name="User">Аккаунт</string>
 </resources>

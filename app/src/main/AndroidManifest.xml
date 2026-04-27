@@ -24,7 +24,15 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
         </activity>
-
+        <activity
+            android:name=".View.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".View.MainClientActivity"
+            android:exported="false" />
+        <activity
+            android:name=".View.AccountActivity"
+            android:exported="false" />
         <activity
             android:name=".View.AddActivity"
             android:exported="false" />

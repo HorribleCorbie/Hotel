@@ -46,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         LogIn = findViewById(R.id.btnLogIn);
         LoginUser = findViewById(R.id.EditLogin);
         Password = findViewById(R.id.EditPassword);
+
         LogIn.setOnClickListener(v -> {
             try {
                 String UserLogin = LoginUser.getText().toString().trim();
@@ -60,7 +61,10 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Введите данные",
                         Toast.LENGTH_SHORT).show();
             }
+        });
 
+        Create.setOnClickListener(v -> {
+            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
         });
     }
 
@@ -92,9 +96,11 @@ public class LoginActivity extends AppCompatActivity {
 
                     if ("admin".equals(user.getRole())) {
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        finish();
                     } else {
-                        Toast.makeText(LoginActivity.this, "Client.",
-                                Toast.LENGTH_SHORT).show();
+                        MainClientActivity.client = new User(user);
+                        startActivity(new Intent(LoginActivity.this, MainClientActivity.class));
+                        finish();
                     }
 
                 } else {

@@ -1,19 +1,13 @@
 package com.project.hotel.View;
 
-import android.annotation.SuppressLint;
+import com.project.hotel.Model.TableWork;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,14 +17,9 @@ import androidx.core.view.WindowInsetsCompat;
 import com.project.hotel.Model.OnRoomFoundListener;
 import com.project.hotel.Model.Room;
 import com.project.hotel.R;
-import com.project.hotel.api.HotelApi;
-import com.project.hotel.api.RetrofitClient;
 
 import java.util.ArrayList;
 import java.util.List;
-import retrofit2.Callback;
-import retrofit2.Call;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements OnRoomFoundListener {
 
@@ -41,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements OnRoomFoundListen
     private Button btnDel;
 
     TableLayout tableLayout;
+    TableWork table;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,58 +79,15 @@ public class MainActivity extends AppCompatActivity implements OnRoomFoundListen
             dialog.show(getSupportFragmentManager(), "custom");
         });
 
-
         tableLayout = findViewById(R.id.tableRooms);
-        ShowRoomsfromDB();
+        table = new TableWork( tableLayout,  this);
+        table.ShowRoomsfromDB();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        ShowRoomsfromDB();
-    }
-
-    private void ShowRoomsfromDB() {
-        RetrofitClient.api.getAllRooms().enqueue(new Callback<>() {
-            @Override
-            public void onResponse(Call<List<Room>> call, Response<List<Room>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    List<Room> rooms = response.body();
-                    showRooms(rooms);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Room>> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-    }
-
-    @SuppressLint("SetTextI18n")
-    private void showRooms(List<Room> rooms) {
-        tableLayout.removeAllViews();
-        TableRoomsGenerated(tableLayout, new String[]{"Номер", "Цена", "Вмещаемость",
-        "Класс", "Площадь"});
-        for (Room room : rooms) {
-            TableRoomsGenerated(tableLayout,room.RoomtoString());
-        }
-    }
-
-    private void TableRoomsGenerated(TableLayout table, String[] options) {
-        TableRow row = new TableRow(this);
-        GradientDrawable border = new GradientDrawable();
-        border.setStroke(1, Color.BLACK);
-        for (String str: options) {
-            TextView newText = new TextView(this);
-            newText.setText(str);
-            newText.setGravity(Gravity.CENTER);
-            row.addView(newText, new TableRow.LayoutParams(
-                    TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 1f));
-        }
-        row.setPadding(5, 5, 5, 5);
-        row.setBackground(border);
-        table.addView(row);
+        table.ShowRoomsfromDB();
     }
 
     @Override
@@ -148,16 +95,16 @@ public class MainActivity extends AppCompatActivity implements OnRoomFoundListen
         btnBack.setVisibility(View.VISIBLE);
         List<Room> roomList = new ArrayList<>();
         roomList.add(room);
-        showRooms(roomList);
+        table.showRooms(roomList);
         btnBack.setOnClickListener(v -> {
-            ShowRoomsfromDB();
+            table.ShowRoomsfromDB();
             btnBack.setVisibility(View.GONE);
         });
     }
 
     @Override
     public void onRoomDeleted(){
-        ShowRoomsfromDB();
+        table.ShowRoomsfromDB();
     }
 
     @Override

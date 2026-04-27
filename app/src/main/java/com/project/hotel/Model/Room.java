@@ -1,10 +1,15 @@
 package com.project.hotel.Model;
+
+import android.text.Editable;
+import android.text.TextWatcher;
+
 public class Room {
     public int number;
     public float price;
     public int capacity;
     public String comfort;
     public float area;
+
     public int getNumber() {
         return number;
     }
@@ -26,16 +31,15 @@ public class Room {
     }
 
 
-
-    public Room(int number, float price, int capacity, String comfort, float area){
+    public Room(int number, float price, int capacity, String comfort, float area) {
         this.number = number;
         this.price = price;
         this.capacity = capacity;
-        this.comfort=comfort;
+        this.comfort = comfort;
         this.area = area;
     }
 
-    public String[] RoomtoString(){
+    public String[] RoomtoString() {
         String[] list = new String[5];
         list[0] = String.valueOf(number);
         list[1] = String.valueOf(price);
@@ -44,5 +48,4 @@ public class Room {
         list[4] = String.valueOf(area);
         return list;
     }
-
 }

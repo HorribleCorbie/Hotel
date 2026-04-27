@@ -1,13 +1,8 @@
 package com.project.hotel.api;
 
-import com.project.hotel.Model.Room;
 import com.project.hotel.Model.User;
-
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -30,7 +25,7 @@ public interface UserApi {
         @POST("user")
         Call<User> createUser(@Body User user);
 
-        @PUT("user/{id}")
-        Call<Boolean> updateUser( @Body User user, @Path("id") Long id);
+        @PUT("user/{login}")
+        Call<User> updateUser( @Body User user, @Path("login") String login);
 
 }
