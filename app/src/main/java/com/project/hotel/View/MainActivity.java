@@ -6,47 +6,32 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TableLayout;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import com.project.hotel.databinding.ActivityMainBinding;
 import com.project.hotel.Model.OnRoomFoundListener;
 import com.project.hotel.Model.Room;
 import com.project.hotel.R;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements OnRoomFoundListener {
-
-    private Button btnBack;
-    private Button btnAdd;
-    private Button btnUpdate;
-    private Button btnFind;
-    private Button btnDel;
-
-    TableLayout tableLayout;
     TableWork table;
+    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
 
-        btnBack = findViewById(R.id.btnBack);
-        btnAdd=findViewById(R.id.btnAdd);
-        btnAdd.setOnClickListener(v -> {
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        binding.btnAdd.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, AddActivity.class);
             startActivity(intent);
         });
 
-        btnUpdate=findViewById(R.id.btnUpdate);
-        btnUpdate.setOnClickListener(v -> {
+        binding.btnUpdate.setOnClickListener(v -> {
             EditDialogFragment dialog = new EditDialogFragment();
             Bundle args = new Bundle();
             args.putString("title", "Выбор комнаты");
@@ -55,8 +40,7 @@ public class MainActivity extends AppCompatActivity implements OnRoomFoundListen
             dialog.show(getSupportFragmentManager(), "custom");
         });
 
-        btnFind=findViewById(R.id.btnFind);
-        btnFind.setOnClickListener(v -> {
+        binding.btnFind.setOnClickListener(v -> {
             EditDialogFragment dialog = new EditDialogFragment();
             Bundle args = new Bundle();
             args.putString("title", "Поиск");
@@ -65,8 +49,7 @@ public class MainActivity extends AppCompatActivity implements OnRoomFoundListen
             dialog.show(getSupportFragmentManager(), "custom");
         });
 
-        btnDel=findViewById(R.id.btnDel);
-        btnDel.setOnClickListener(v -> {
+        binding.btnDel.setOnClickListener(v -> {
             EditDialogFragment dialog = new EditDialogFragment();
             Bundle args = new Bundle();
             args.putString("title", "Удаление");
@@ -75,8 +58,7 @@ public class MainActivity extends AppCompatActivity implements OnRoomFoundListen
             dialog.show(getSupportFragmentManager(), "custom");
         });
 
-        tableLayout = findViewById(R.id.tableRooms);
-        table = new TableWork( tableLayout,  this);
+        table = new TableWork( binding.tableRooms,  this);
         table.ShowRoomsfromDB();
     }
 
@@ -88,13 +70,11 @@ public class MainActivity extends AppCompatActivity implements OnRoomFoundListen
 
     @Override
     public void onRoomFound(Room room) {
-        btnBack.setVisibility(View.VISIBLE);
-        List<Room> roomList = new ArrayList<>();
-        roomList.add(room);
-        table.showRooms(roomList);
-        btnBack.setOnClickListener(v -> {
-            table.ShowRoomsfromDB();
-            btnBack.setVisibility(View.GONE);
+        binding.btnBack.setVisibility(View.VISIBLE);
+        table.showRooms(room);
+        binding.btnBack.setOnClickListener(v -> {
+            table.showRooms(table.rooms);
+            binding.btnBack.setVisibility(View.GONE);
         });
     }
 
@@ -113,7 +93,6 @@ public class MainActivity extends AppCompatActivity implements OnRoomFoundListen
         intent.putExtra("area", room.getArea());
         intent.putExtra("comfort", room.getComfort());
         startActivity(intent);
-
     }
 
     @Override
@@ -129,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements OnRoomFoundListen
 
         if (id == R.id.LogOut) {
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            finish();
             return true;
         }
 

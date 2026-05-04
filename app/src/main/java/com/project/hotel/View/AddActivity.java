@@ -7,19 +7,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import com.project.hotel.databinding.AddNewRoomBinding;
 
 import com.project.hotel.Model.Room;
-import com.project.hotel.R;
 import com.project.hotel.api.RetrofitClient;
 
 import retrofit2.Call;
@@ -27,27 +21,19 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AddActivity extends AppCompatActivity {
-
-    private Button close;
-    private Button add;
-    private EditText number;
-    public EditText price;
-    public EditText capacity;
-    public Spinner comfort;
-    public EditText area;
     String[] classComfort = { "economy", "standard", "luxe"};
     String item;
-
+    AddNewRoomBinding binding;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_new_room);
+        binding = AddNewRoomBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         EdgeToEdge.enable(this);
 
-        close = findViewById(R.id.btnClose);
-        close.setOnClickListener(v -> {
+        binding.btnClose.setOnClickListener(v -> {
             Intent intent = new Intent(AddActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
@@ -56,13 +42,7 @@ public class AddActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, classComfort);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        add=findViewById(R.id.btnReady);
-        number = findViewById(R.id.editNumber);
-        price = findViewById(R.id.editPrice);
-        capacity = findViewById(R.id.editCapacity);
-        comfort = findViewById(R.id.spClassComfort);
-        comfort.setAdapter(adapter);
-        area= findViewById(R.id.editArea);
+        binding.spClassComfort.setAdapter(adapter);
 
         AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {
             @Override
@@ -77,18 +57,18 @@ public class AddActivity extends AppCompatActivity {
             }
         };
 
-        comfort.setOnItemSelectedListener(itemSelectedListener);
+        binding.spClassComfort.setOnItemSelectedListener(itemSelectedListener);
 
-        add.setOnClickListener(v -> {
+        binding.btnReady.setOnClickListener(v -> {
             int numField;
             float priceField;
             int capacityField;
             float areaField;
             try {
-                numField  = Integer.parseInt(number.getText().toString());
-                priceField = Float.parseFloat(price.getText().toString());
-                capacityField  = Integer.parseInt(capacity.getText().toString());
-                areaField  = Float.parseFloat(area.getText().toString());
+                numField  = Integer.parseInt(binding.editNumber.getText().toString());
+                priceField = Float.parseFloat(binding.editPrice.getText().toString());
+                capacityField  = Integer.parseInt(binding.editCapacity.getText().toString());
+                areaField  = Float.parseFloat(binding.editArea.getText().toString());
                 if (numField>100 || numField<=0){
                     Toast.makeText(this, "Номер должен быть от 1 до 100.", Toast.LENGTH_SHORT).show();
                     return;

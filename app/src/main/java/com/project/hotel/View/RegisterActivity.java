@@ -3,19 +3,13 @@ package com.project.hotel.View;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
+import com.project.hotel.databinding.RegisterBinding;
 import com.project.hotel.Model.TextWatcherAdapter;
 import com.project.hotel.Model.User;
-import com.project.hotel.R;
 import com.project.hotel.api.RetrofitClient;
 
 import retrofit2.Call;
@@ -23,25 +17,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
-    Button create;
-    Button back;
-    EditText user;
-    EditText login;
-    EditText password;
+    RegisterBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.register);
+        binding = RegisterBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        create = findViewById(R.id.btnCreateUser);
-        back = findViewById(R.id.btnBackReg);
-        user = findViewById(R.id.editName);
-        login = findViewById(R.id.editLogIn);
-        password = findViewById(R.id.editPassReg);
-
-        user.addTextChangedListener(new TextWatcherAdapter() {
+        binding.editName.addTextChangedListener(new TextWatcherAdapter() {
             @Override
             public void afterTextChanged(Editable s) {
 
@@ -64,20 +49,20 @@ public class RegisterActivity extends AppCompatActivity {
 
                     String processed = newText.toString();
                     if (!original.equals(processed)) {
-                        user.removeTextChangedListener(this);
-                        user.setText(processed);
-                        user.setSelection(processed.length());
-                        user.addTextChangedListener(this);
+                        binding.editName.removeTextChangedListener(this);
+                        binding.editName.setText(processed);
+                        binding.editName.setSelection(processed.length());
+                        binding.editName.addTextChangedListener(this);
                     }
                 }
             }
         });
 
 
-        create.setOnClickListener(v -> {
-            String name = String.valueOf(user.getText());
-            String pass = String.valueOf(password.getText());
-            String log = String.valueOf(login.getText());
+        binding.btnCreateUser.setOnClickListener(v -> {
+            String name = String.valueOf(binding.editName.getText());
+            String pass = String.valueOf(binding.editPassReg.getText());
+            String log = String.valueOf(binding.editLogIn.getText());
             if (name.isEmpty() || name.length() < 2 || name.length() >= 255) {
                 Toast.makeText(this, "Имя должно быть не пустым", Toast.LENGTH_SHORT).show();
                 return;
@@ -91,17 +76,15 @@ public class RegisterActivity extends AppCompatActivity {
                 return;
             }
 
-            User newUser =new User(log, pass, name, "client");
+            User newUser = new User(log, pass, name, "client");
 
             RetrofitClient.Userapi.checkLogin(log).enqueue(new Callback<Boolean>() {
                 @Override
                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                    if (response.isSuccessful() && response.body() !=null){
-                        if (!response.body()){
+                    if (response.isSuccessful() && response.body() != null) {
+                        if (!response.body()) {
                             CreateNewUser(newUser);
-                        }
-                        else
-                        {
+                        } else {
                             Toast.makeText(RegisterActivity.this,
                                     "Пользователь с таким логином уже существует",
                                     Toast.LENGTH_SHORT).show();
@@ -120,15 +103,14 @@ public class RegisterActivity extends AppCompatActivity {
 
         });
 
-        back.setOnClickListener(v -> startActivity(new Intent(RegisterActivity.this, LoginActivity.class)));
+        binding.btnBackReg.setOnClickListener(v -> startActivity(new Intent(RegisterActivity.this, LoginActivity.class)));
     }
 
-    public void CreateNewUser(User user){
+    public void CreateNewUser(User user) {
         RetrofitClient.Userapi.createUser(user).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if (response.isSuccessful() && response.body() !=null)
-                {
+                if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(RegisterActivity.this,
                             "Пользователь создан.",
                             Toast.LENGTH_LONG).show();
@@ -136,8 +118,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                         @Override
                         public void onResponse(Call<User> call, Response<User> response) {
-                            if (response.isSuccessful() && response.body()!=null)
-                            {
+                            if (response.isSuccessful() && response.body() != null) {
                                 MainClientActivity.client = response.body();
                                 startActivity(new Intent(RegisterActivity.this, MainClientActivity.class));
                                 finish();

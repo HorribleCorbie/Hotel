@@ -3,10 +3,7 @@ package com.project.hotel.View;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.util.Log;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import com.project.hotel.databinding.RegisterBinding;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -14,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.project.hotel.Model.TextWatcherAdapter;
 import com.project.hotel.Model.User;
-import com.project.hotel.R;
 import com.project.hotel.api.RetrofitClient;
 
 import java.util.Objects;
@@ -24,31 +20,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AccountActivity  extends AppCompatActivity {
-
-    Button create;
-    Button back;
-    EditText user;
-    EditText login;
-    EditText password;
-    TextView title;
+    RegisterBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+        binding = RegisterBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        binding.txtTitle.setText("Ваш аккаунт");
 
-        setContentView(R.layout.register);
-        create = findViewById(R.id.btnCreateUser);
-        back = findViewById(R.id.btnBackReg);
-
-        user = findViewById(R.id.editName);
-        login = findViewById(R.id.editLogIn);
-        password = findViewById(R.id.editPassReg);
-
-        title = findViewById(R.id.txt_title);
-        title.setText("Ваш аккаунт");
-
-        user.addTextChangedListener(new TextWatcherAdapter() {
+        binding.editName.addTextChangedListener(new TextWatcherAdapter() {
             @Override
             public void afterTextChanged(Editable s) {
 
@@ -70,24 +52,24 @@ public class AccountActivity  extends AppCompatActivity {
 
                     String processed = newText.toString();
                     if (!original.equals(processed)) {
-                        user.removeTextChangedListener(this);
-                        user.setText(processed);
-                        user.setSelection(processed.length());
-                        user.addTextChangedListener(this);
+                        binding.editName.removeTextChangedListener(this);
+                        binding.editName.setText(processed);
+                        binding.editName.setSelection(processed.length());
+                        binding.editName.addTextChangedListener(this);
                     }
                 }
             }
         });
 
-        user.setText(MainClientActivity.client.getName());
-        password.setText(MainClientActivity.client.getPassword());
-        login.setText(MainClientActivity.client.getLogin());
+        binding.editName.setText(MainClientActivity.client.getName());
+        binding.editPassReg.setText(MainClientActivity.client.getPassword());
+        binding.editLogIn.setText(MainClientActivity.client.getLogin());
 
-        login.setEnabled(false);
+        binding.editLogIn.setEnabled(false);
 
-        create.setOnClickListener(v -> {
-            String name = String.valueOf(user.getText());
-            String pass = String.valueOf(password.getText());
+        binding.btnCreateUser.setOnClickListener(v -> {
+            String name = String.valueOf(binding.editName.getText());
+            String pass = String.valueOf(binding.editPassReg.getText());
             if (name.isEmpty() || name.length() < 2 || name.length() >= 255) {
                 Toast.makeText(this, "Имя должно быть не пустым", Toast.LENGTH_SHORT).show();
                 return;
@@ -118,7 +100,11 @@ public class AccountActivity  extends AppCompatActivity {
                 }
             });
         });
-        back.setOnClickListener(v -> startActivity(new Intent(AccountActivity.this, MainClientActivity.class)));
+        binding.btnBackReg.setOnClickListener(v -> {
+                    startActivity(new Intent(AccountActivity.this, MainClientActivity.class));
+                    finish();
+                }
+        );
     }
 
 }

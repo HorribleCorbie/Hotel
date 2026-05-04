@@ -29,4 +29,5 @@
     <string name="log_out">Выйти</string>
     <string name="select_date">Выбрать время</string>
     <string name="txt_if_user_have_bookings">Ваши активные бронирования</string>
+    <string name="txt_if_user_dont_have_bookings">У вас нет активных бронирований</string>
 </resources>

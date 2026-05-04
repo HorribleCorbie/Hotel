@@ -3,6 +3,7 @@ package com.project.hotel.Model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class Room {
     public int number;
@@ -40,13 +41,13 @@ public class Room {
         this.area = area;
     }
 
-    public String[] RoomtoString() {
+    static public String[] RoomtoString(Room room) {
         String[] list = new String[5];
-        list[0] = String.valueOf(number);
-        list[1] = String.valueOf(price);
-        list[2] = String.valueOf(capacity);
-        list[3] = comfort;
-        list[4] = String.valueOf(area);
+        list[0] = String.valueOf(room.getNumber());
+        list[1] = String.valueOf(room.getPrice());
+        list[2] = String.valueOf(room.getCapacity());
+        list[3] = room.getComfort();
+        list[4] = String.valueOf(room.getArea());
         return list;
     }
 
@@ -64,5 +65,12 @@ public class Room {
                 return room.getPrice();
         }
         throw new NullPointerException();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Room room = (Room) o;
+        return number == room.number && Float.compare(price, room.price) == 0 && capacity == room.capacity && Float.compare(area, room.area) == 0 && Objects.equals(comfort, room.comfort);
     }
 }

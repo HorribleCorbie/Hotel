@@ -17,23 +17,31 @@
             android:background="#FFE185" />
 
         <LinearLayout
+            android:id="@+id/layout_active_booking"
             android:layout_width="match_parent"
-            android:layout_height="59dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/txtBooking"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="10sp"
+                android:layout_marginBottom="10sp"
                 android:autoSizeTextType="uniform"
+                android:background="#4B5C8A"
                 android:gravity="center"
-                android:text="@string/txt_if_user_have_bookings" />
+                android:padding="5sp"
+                android:text="@string/txt_if_user_dont_have_bookings"
+                android:textColor="#F9F9FA"
+                android:textSize="24sp" />
 
             <TableLayout
                 android:id="@+id/activeBookings"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"
+                android:background="#FFE185"/>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
