@@ -9,6 +9,9 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.project.hotel.Model.TextWatcherAdapter;
 import com.project.hotel.Model.User;
@@ -129,9 +132,25 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this,
                             "Пользователь создан.",
                             Toast.LENGTH_LONG).show();
-                    MainClientActivity.client = user;
-                    startActivity(new Intent(RegisterActivity.this, MainClientActivity.class));
-                    finish();
+                    RetrofitClient.Userapi.getUserByLogin(user.getLogin()).enqueue(new Callback<User>() {
+
+                        @Override
+                        public void onResponse(Call<User> call, Response<User> response) {
+                            if (response.isSuccessful() && response.body()!=null)
+                            {
+                                MainClientActivity.client = response.body();
+                                startActivity(new Intent(RegisterActivity.this, MainClientActivity.class));
+                                finish();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<User> call, Throwable t) {
+                            Toast.makeText(RegisterActivity.this,
+                                    "Не удалось зайти под новым пользователем. Повторите вход позже",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             }
 

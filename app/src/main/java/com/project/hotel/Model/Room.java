@@ -1,7 +1,8 @@
 package com.project.hotel.Model;
 
-import android.text.Editable;
-import android.text.TextWatcher;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Room {
     public int number;
@@ -47,5 +48,21 @@ public class Room {
         list[3] = comfort;
         list[4] = String.valueOf(area);
         return list;
+    }
+
+    static public List<Integer> RoomstoList(List<Room> rooms) {
+        List<Integer> numbers = new ArrayList<>();
+        for (Room room : rooms) {
+            numbers.add(room.getNumber());
+        }
+        return numbers;
+    }
+
+    static public float GetRoomPrice(List<Room> rooms, int number) {
+        for (Room room : rooms) {
+            if (number == room.getNumber())
+                return room.getPrice();
+        }
+        throw new NullPointerException();
     }
 }

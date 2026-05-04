@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Hotel"
         android:usesCleartextTraffic="true"
-        tools:targetApi="24">
+        tools:targetApi="26">
         <activity
             android:name=".View.LoginActivity"
             android:exported="true"> <intent-filter>
@@ -36,7 +36,9 @@
         <activity
             android:name=".View.AddActivity"
             android:exported="false" />
-
+        <activity
+            android:name=".View.BookingActivity"
+            android:exported="false" />
         <activity
             android:name=".View.UpdateActivity"
             android:exported="false" />

@@ -1,7 +1,24 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Hotel" parent="Theme.Material3.DayNight">
+<!--    <style name="Base.Theme.Hotel" parent="Theme.Material3.DayNight">-->
+    <style name="Base.Theme.Hotel" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Customize your light theme here. -->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:fitsSystemWindows">true</item>
+<!--        &lt;!&ndash; Основной цвет &ndash;&gt;-->
+        <item name="colorPrimary">@color/m3_ref_palette_dynamic_primary40</item>
+
+<!--        &lt;!&ndash; Цвет текста на нём &ndash;&gt;-->
+<!--        <item name="colorOnPrimary">@color/m3_ref_palette_dynamic_primary100</item>-->
+
+<!--        &lt;!&ndash; Вторичный &ndash;&gt;-->
+<!--        <item name="colorSecondary">@color/m3_ref_palette_dynamic_secondary40</item>-->
+
+<!--        &lt;!&ndash; Фон &ndash;&gt;-->
+<!--        <item name="colorSurface">@color/m3_ref_palette_dynamic_neutral99</item>-->
+
+<!--        &lt;!&ndash; Текст на фоне &ndash;&gt;-->
+<!--        <item name="colorOnSurface">@color/m3_ref_palette_dynamic_neutral10</item>-->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 

@@ -4,11 +4,11 @@
 
     <item
         android:id="@+id/booking"
-        android:title="Бронирование" />
+        android:title="@string/bookings" />
     <item
         android:id="@+id/account"
-        android:title="Аккаунт" />
+        android:title="@string/User" />
     <item
         android:id="@+id/LogOut"
-        android:title="Выйти" />
+        android:title="@string/log_out" />
 </menu>

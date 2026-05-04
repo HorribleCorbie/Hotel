@@ -1,6 +1,8 @@
 package com.project.hotel.api;
 
 import com.project.hotel.Model.Room;
+
+import java.time.LocalDate;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.*;
@@ -18,6 +20,9 @@ public interface HotelApi {
 
     @GET("rooms/check")
     Call<Boolean> check(@Query("number") int number);
+
+    @GET("rooms/bookings")
+    Call<List<Room>> allRoomsforBookings(@Query("start") LocalDate start, @Query("end")  LocalDate end);
 
     @POST("rooms")
     Call<Room> createRoom(@Body Room room);

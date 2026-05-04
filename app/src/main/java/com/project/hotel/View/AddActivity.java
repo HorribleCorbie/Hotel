@@ -14,6 +14,9 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.project.hotel.Model.Room;
 import com.project.hotel.R;
@@ -52,6 +55,7 @@ public class AddActivity extends AppCompatActivity {
 
         ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, classComfort);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         add=findViewById(R.id.btnReady);
         number = findViewById(R.id.editNumber);
         price = findViewById(R.id.editPrice);

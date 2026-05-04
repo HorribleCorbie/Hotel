@@ -1,127 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll_reg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg1">
+    android:background="@color/bg1"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/txt_title"
             android:layout_width="match_parent"
-            android:layout_height="59dp"
-            android:layout_marginTop="20sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="16dp"
             android:background="#FFB5B5"
             android:gravity="center"
             android:text="@string/new_register"
-            app:autoSizeTextType="uniform" />
+            android:textStyle="bold"
+            android:textSize="20sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="72dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal"
-            android:paddingLeft="30px"
-            android:paddingTop="30px"
-            android:paddingRight="30px">
+            android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/txtLoginReg"
-                android:layout_width="110dp"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:paddingRight="5dp"
+                android:gravity="center"
                 android:text="@string/Login"
+                android:textSize="20sp"
                 app:autoSizeTextType="uniform" />
 
             <EditText
                 android:id="@+id/editLogIn"
-                android:layout_width="112dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="text" />
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:inputType="text"
+                android:padding="12dp"
+                android:background="@android:drawable/edit_text" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="72dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:orientation="horizontal"
-            android:paddingLeft="30px"
-            android:paddingTop="30px"
-            android:paddingRight="30px">
+            android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/txtPassReg"
-                android:layout_width="110dp"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:paddingRight="5dp"
+                android:gravity="center"
                 android:text="@string/Password"
+                android:textSize="20sp"
                 app:autoSizeTextType="uniform" />
 
             <EditText
                 android:id="@+id/editPassReg"
-                android:layout_width="112dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="textPassword" />
-
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:inputType="textPassword"
+                android:padding="12dp"
+                android:background="@android:drawable/edit_text" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="72dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:orientation="horizontal"
-            android:paddingLeft="30px"
-            android:paddingTop="30px"
-            android:paddingRight="30px">
+            android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/txtNameReg"
-                android:layout_width="110dp"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:paddingRight="5dp"
+                android:gravity="center"
                 android:text="@string/username"
+                android:textSize="20sp"
                 app:autoSizeTextType="uniform" />
 
             <EditText
                 android:id="@+id/editName"
-                android:layout_width="112dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                android:ems="10"
-                android:inputType="text|textPersonName|textCapWords" />
-
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:inputType="textPersonName"
+                android:padding="12dp"
+                android:background="@android:drawable/edit_text" />
         </LinearLayout>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnCreateUser"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20sp"
-            android:layout_marginBottom="20sp"
+            android:layout_marginTop="24dp"
             android:text="@string/register_name"
-            android:textSize="34sp" />
+            android:textSize="16sp"
+            app:cornerRadius="12dp" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnBackReg"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
             android:text="@string/button_back"
-            android:textSize="34sp" />
+            android:textSize="16sp"
+            app:cornerRadius="12dp"
+            app:strokeWidth="1dp" />
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:visibility="gone" />
+
     </LinearLayout>
+
 </ScrollView>

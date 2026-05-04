@@ -45,7 +45,7 @@ public class MainClientActivity extends AppCompatActivity {
             startActivity(new Intent(MainClientActivity.this, LoginActivity.class));
             finish();
         } else if (id == R.id.booking) {
-            startActivity(new Intent(MainClientActivity.this, LoginActivity.class));
+            startActivity(new Intent(MainClientActivity.this, BookingActivity.class));
             finish();
         } else {
             startActivity(new Intent(MainClientActivity.this, AccountActivity.class));

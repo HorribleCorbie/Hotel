@@ -1,6 +1,12 @@
 package com.project.hotel.Model;
 
 public class User {
+    private Long id;
+
+    public Long getId() {
+        return id;
+    }
+
     private String login;
     private String password;
     private String name;

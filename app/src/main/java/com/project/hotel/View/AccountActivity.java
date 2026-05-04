@@ -47,7 +47,6 @@ public class AccountActivity  extends AppCompatActivity {
 
         title = findViewById(R.id.txt_title);
         title.setText("Ваш аккаунт");
-        Log.e("MY_API_ERROR", "help");
 
         user.addTextChangedListener(new TextWatcherAdapter() {
             @Override
@@ -79,14 +78,13 @@ public class AccountActivity  extends AppCompatActivity {
                 }
             }
         });
-        Log.e("MY_API_ERROR", MainClientActivity.client.getName() + " " + MainClientActivity.client.getPassword()
-        + " " + MainClientActivity.client.getLogin());
+
         user.setText(MainClientActivity.client.getName());
         password.setText(MainClientActivity.client.getPassword());
         login.setText(MainClientActivity.client.getLogin());
 
         login.setEnabled(false);
-        Log.e("MY_API_ERROR", "help");
+
         create.setOnClickListener(v -> {
             String name = String.valueOf(user.getText());
             String pass = String.valueOf(password.getText());

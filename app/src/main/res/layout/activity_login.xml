@@ -82,6 +82,7 @@
             android:layout_marginTop="228dp"
             android:text="@string/log_in"
             android:textSize="24sp"
+            app:cornerRadius="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -106,13 +107,14 @@
             android:layout_marginTop="24dp"
             android:layout_marginBottom="32dp"
             android:text="@string/register_name"
-            android:textSize="24sp"
+            android:textSize="22sp"
+            app:cornerRadius="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.54"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView10"
-            app:layout_constraintVertical_bias="0.063" />
+            app:layout_constraintVertical_bias="0.057" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
