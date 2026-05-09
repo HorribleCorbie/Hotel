@@ -19,17 +19,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TableWork {
-    TableLayout tableLayout;
-    AppCompatActivity context;
+public class TableWork extends Table{
     public List<Room> rooms = new ArrayList<>();
 
     public TableWork(TableLayout tableLayout, AppCompatActivity context) {
-        this.tableLayout = tableLayout;
-        this.context = context;
+        super(tableLayout, context);
     }
 
-    public void ShowRoomsfromDB() {
+    public void showAllFromDB() {
         RetrofitClient.api.getAllRooms().enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<List<Room>> call, Response<List<Room>> response) {
@@ -64,19 +61,4 @@ public class TableWork {
         TableRoomsGenerated(tableLayout, Room.RoomtoString(room));
     }
 
-    public void TableRoomsGenerated(TableLayout table, String[] options) {
-        TableRow row = new TableRow(context);
-        GradientDrawable border = new GradientDrawable();
-        border.setStroke(1, Color.BLACK);
-        for (String str : options) {
-            TextView newText = new TextView(context);
-            newText.setText(str);
-            newText.setGravity(Gravity.CENTER);
-            row.addView(newText, new TableRow.LayoutParams(
-                    TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 1f));
-        }
-        row.setPadding(5, 5, 5, 5);
-        row.setBackground(border);
-        table.addView(row);
-    }
 }

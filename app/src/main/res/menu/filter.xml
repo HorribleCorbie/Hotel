@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/switch_menu"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/switch_active_bookings"
+            android:title="@string/active_booking"
+            app:actionLayout="@layout/switch_item" />
+        <item
+            android:id="@+id/switch_closed_bookings"
+            android:title="@string/closed_bookings"
+            app:actionLayout="@layout/switch_item" />
+    </group>
+    <item
+        android:id="@+id/check_in"
+        android:title="@string/check_in" />
+    <item
+        android:id="@+id/check_out"
+        android:title="@string/check_out" />
+    <item
+        android:id="@+id/client_filter"
+        android:title="@string/filter_client" />
+    <group android:id="@+id/add_switch_menu">
+
+    </group>
+</menu>

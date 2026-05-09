@@ -7,10 +7,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
+
+import com.project.hotel.Model.Booking;
+import com.project.hotel.Model.OnBookingFoundListener;
 import com.project.hotel.Model.OnRoomFoundListener;
 import com.project.hotel.Model.Room;
 import com.project.hotel.R;
@@ -20,14 +24,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EditDialogFragment extends DialogFragment {
+public class EditBookingDialogFragment extends DialogFragment {
 
-    private OnRoomFoundListener Found;
+    private OnBookingFoundListener Found;
 
     @Override
     public void onAttach(Context context){
         super.onAttach(context);
-        Found = (OnRoomFoundListener) context;
+        Found = (OnBookingFoundListener) context;
     }
 
 
@@ -36,11 +40,13 @@ public class EditDialogFragment extends DialogFragment {
 
         String title = getArguments().getString("title");
         String choice = getArguments().getString("choice");
+
         LayoutInflater inflater = requireActivity().getLayoutInflater();
+
         View view = inflater.inflate(R.layout.dialog, null);
-
         EditText edit = view.findViewById(R.id.editdialog);
-
+        TextView text = view.findViewById(R.id.txt_dialog);
+        text.setText(R.string.edit_id);
         AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
 
 
@@ -49,10 +55,10 @@ public class EditDialogFragment extends DialogFragment {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setView(view)
                 .setPositiveButton("OK", (dialog, which) -> {
-                    int number;
+                    long id;
                     try {
-                        number = Integer.parseInt(edit.getText().toString());
-                        existingRoom(number, choice);
+                        id = Long.parseLong(edit.getText().toString());
+                        existingBooking(id, choice);
                     }catch (NumberFormatException e){
                         return;
                     }
@@ -63,11 +69,12 @@ public class EditDialogFragment extends DialogFragment {
 
     private void showErrorToast() {
         if (getContext() != null) {
-            Toast.makeText(getContext(), "Комната не существует", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Бронирования не существует", Toast.LENGTH_SHORT).show();
         }
     }
-    private void existingRoom(int number, String choice) {
-        RetrofitClient.api.check(number).enqueue(new Callback<Boolean>() {
+
+    private void existingBooking(Long id, String choice) {
+        RetrofitClient.Bookingapi.check(id).enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 if (response.isSuccessful() && response.body()!=null)
@@ -76,20 +83,20 @@ public class EditDialogFragment extends DialogFragment {
                         if (response.body()) {
                             switch (choice) {
                                 case "find":
-                                    outputRoom(number);
+                                    outputBooking(id);
                                     break;
                                 case "delete":
-                                    deleteRoom(number);
+                                    deleteBooking(id);
                                     break;
                                 case "select":
-                                    selectRoom(number);
+                                    selectBooking(id);
                                     break;
                             }
                         } else {
                             showErrorToast();
                         }
                     }catch (NullPointerException e){
-                            showErrorToast();
+                        showErrorToast();
                     }
                 }
             }
@@ -98,11 +105,12 @@ public class EditDialogFragment extends DialogFragment {
             }
         });
     }
-    private void deleteRoom(int number){
-        RetrofitClient.api.deleteRoom(number).enqueue(new Callback<Void>() {
+
+    private void deleteBooking(Long id){
+        RetrofitClient.Bookingapi.deleteBooking(id).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                Found.onRoomDeleted();
+                Found.onBookingDeleted();
             }
 
             @Override
@@ -112,34 +120,34 @@ public class EditDialogFragment extends DialogFragment {
         });
     }
 
-    private void selectRoom(int number) {
-        RetrofitClient.api.getRoom(number).enqueue(new Callback<Room>() {
+    private void selectBooking(Long id){
+        RetrofitClient.Bookingapi.getBooking(id).enqueue(new Callback<Booking>() {
             @Override
-            public void onResponse(Call<Room> call, Response<Room> response) {
+            public void onResponse(Call<Booking> call, Response<Booking> response) {
                 if(response.isSuccessful() && response.body()!=null)
                 {
-                    Room room = response.body();
-                    Found.selectRoom(room);
+                    Booking booking = response.body();
+                    Found.selectBooking(booking);
                 }
             }
             @Override
-            public void onFailure(Call<Room> call, Throwable t) {
+            public void onFailure(Call<Booking> call, Throwable t) {
 
             }
         });
     }
-    private void outputRoom(int number) {
-        RetrofitClient.api.getRoom(number).enqueue(new Callback<Room>() {
+    private void outputBooking(Long id){
+        RetrofitClient.Bookingapi.getBooking(id).enqueue(new Callback<Booking>() {
             @Override
-            public void onResponse(Call<Room> call, Response<Room> response) {
+            public void onResponse(Call<Booking> call, Response<Booking> response) {
                 if(response.isSuccessful() && response.body()!=null)
                 {
-                    Room room = response.body();
-                    Found.onRoomFound(room);
+                    Booking booking = response.body();
+                    Found.onBookingFound(booking);
                 }
             }
             @Override
-            public void onFailure(Call<Room> call, Throwable t) {
+            public void onFailure(Call<Booking> call, Throwable t) {
 
             }
         });

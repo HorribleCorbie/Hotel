@@ -15,14 +15,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Hotel"
-        android:usesCleartextTraffic="true"
-        tools:targetApi="26">
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".View.LoginActivity"
-            android:exported="true"> <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+            android:exported="false">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity
+            android:name=".View.AdminBookingActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".View.RegisterActivity"
@@ -42,10 +50,9 @@
         <activity
             android:name=".View.UpdateActivity"
             android:exported="false" />
-
         <activity
             android:name=".View.MainActivity"
-            android:exported="false"> </activity>
+            android:exported="false" />
     </application>
 
 </manifest>

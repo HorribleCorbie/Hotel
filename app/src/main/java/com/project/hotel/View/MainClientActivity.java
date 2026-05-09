@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.project.hotel.Model.BookingTable;
 import com.project.hotel.databinding.ClientMainBinding;
@@ -30,7 +29,7 @@ public class MainClientActivity extends AppCompatActivity {
 
         TableWork table = new TableWork(binding.tableClients, this);
         bookingTable = new BookingTable(binding.activeBookings, this );
-        table.ShowRoomsfromDB();
+        table.showAllFromDB();
         bookingTable.showAllBookingsByClient(client.getId(), binding.txtBooking);
     }
 

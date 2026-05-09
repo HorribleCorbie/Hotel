@@ -30,4 +30,13 @@
     <string name="select_date">Выбрать время</string>
     <string name="txt_if_user_have_bookings">Ваши активные бронирования</string>
     <string name="txt_if_user_dont_have_bookings">У вас нет активных бронирований</string>
+    <string name="edit_id">Введите id брони</string>
+    <string name="active_booking">Активные</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="filter">Фильтр</string>
+    <string name="closed_bookings">Завершенные</string>
+    <string name="check_in">Дата въезда</string>
+    <string name="check_out">Дата выезда</string>
+    <string name="filter_client">По клиенту</string>
+    <string name="input_id_client">Выберите id клиента</string>
 </resources>

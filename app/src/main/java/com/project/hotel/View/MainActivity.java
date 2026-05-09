@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements OnRoomFoundListen
         });
 
         binding.btnUpdate.setOnClickListener(v -> {
-            EditDialogFragment dialog = new EditDialogFragment();
+            EditRoomDialogFragment dialog = new EditRoomDialogFragment();
             Bundle args = new Bundle();
             args.putString("title", "Выбор комнаты");
             args.putString("choice", "select");
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements OnRoomFoundListen
         });
 
         binding.btnFind.setOnClickListener(v -> {
-            EditDialogFragment dialog = new EditDialogFragment();
+            EditRoomDialogFragment dialog = new EditRoomDialogFragment();
             Bundle args = new Bundle();
             args.putString("title", "Поиск");
             args.putString("choice", "find");
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements OnRoomFoundListen
         });
 
         binding.btnDel.setOnClickListener(v -> {
-            EditDialogFragment dialog = new EditDialogFragment();
+            EditRoomDialogFragment dialog = new EditRoomDialogFragment();
             Bundle args = new Bundle();
             args.putString("title", "Удаление");
             args.putString("choice", "delete");
@@ -59,13 +59,13 @@ public class MainActivity extends AppCompatActivity implements OnRoomFoundListen
         });
 
         table = new TableWork( binding.tableRooms,  this);
-        table.ShowRoomsfromDB();
+        table.showAllFromDB();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        table.ShowRoomsfromDB();
+        table.showAllFromDB();
     }
 
     @Override
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements OnRoomFoundListen
 
     @Override
     public void onRoomDeleted(){
-        table.ShowRoomsfromDB();
+        table.showAllFromDB();
     }
 
     @Override
@@ -105,11 +105,12 @@ public class MainActivity extends AppCompatActivity implements OnRoomFoundListen
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         if (id == R.id.LogOut) {
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();
             return true;
+        }else if (id == R.id.admin_bookings){
+            startActivity(new Intent(MainActivity.this, AdminBookingActivity.class));
         }
 
         return super.onOptionsItemSelected(item);

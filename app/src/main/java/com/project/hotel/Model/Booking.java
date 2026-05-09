@@ -8,6 +8,15 @@ public class Booking {
     private String  out_date;
     private float price;
 
+    public Booking(float price, String out_date, String in_date, User client, Room room, Long id) {
+        this.price = price;
+        this.out_date = out_date;
+        this.in_date = in_date;
+        this.client = client;
+        this.room = room;
+        this.id = id;
+    }
+
     public Room getRoom() {
         return room;
     }
@@ -71,28 +80,17 @@ public class Booking {
         list[1] = String.valueOf(booking.getPrice());
         list[2] = booking.getIn_date();
         list[3] = booking.getOut_date();
-        System.out.println(booking.toString());
         return list;
     }
 
-    @Override
-    public String toString() {
-        return "Booking{" +
-                "id=" + id +
-                ", room=" + room.getNumber() +
-                ", client=" + client +
-                ", in_date='" + in_date + '\'' +
-                ", out_date='" + out_date + '\'' +
-                ", price=" + price +
-                '}';
+    static public String[] BookingToString(Booking booking) {
+        String[] list = new String[6];
+        list[0] = String.valueOf(booking.getId());
+        list[1] = String.valueOf(booking.getRoom().getNumber());
+        list[2] = String.valueOf(booking.getClient().getId());
+        list[3] = booking.getIn_date();
+        list[4] = booking.getOut_date();
+        list[5] = String.valueOf(booking.getPrice());
+        return list;
     }
-//    static public String[] BookingToString(Booking booking) {
-//        String[] list = new String[5];
-//        list[0] = String.valueOf(booking.getId());
-//        list[1] = String.valueOf(booking.getRoom().getNumber());
-//        list[2] = String.valueOf(booking.getClient().getId());
-//        list[3] = booking.getComfort();
-//        list[4] = String.valueOf(booking.getArea());
-//        return list;
-//    }
 }

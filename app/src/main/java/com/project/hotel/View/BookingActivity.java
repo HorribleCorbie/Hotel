@@ -34,6 +34,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class BookingActivity extends AppCompatActivity {
+    //https://www.geeksforgeeks.org/android/material-design-date-picker-in-android/
+    //https://www.geeksforgeeks.org/android/more-functionalities-of-material-design-date-picker-in-android/
+    //https://stackoverflow.com/questions/35183146/how-can-i-create-a-java-8-localdate-from-a-long-epoch-time-in-milliseconds
+    //https://stackoverflow.com/questions/62739054/how-to-count-number-of-days-between-date-range-material-picker-in-andr
+    //https://stackoverflow.com/questions/203984/how-do-i-remove-repeated-elements-from-arraylist
 
     private BookingsBinding binding;
     private int id_room;

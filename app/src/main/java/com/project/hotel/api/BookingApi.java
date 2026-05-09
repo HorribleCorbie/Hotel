@@ -13,26 +13,28 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface BookingApi {
 
+    @POST("booking")
+    Call<Booking> newBooking(@Body BookingRequest booking);
     @GET("booking")
     Call<List<Booking>> getAllBookings();
+
+    @GET("booking/check")
+    Call<Boolean> check(@Query("id") Long id);
+
+    @PUT("booking/{id}")
+    Call<Booking> updateBooking(@Path("id") Long id,  @Body Booking booking);
+
+    @DELETE("booking/delete/{id}")
+    Call<Void> deleteBooking(@Path("id") Long id);
 
     @GET("booking/all/{id}")
     Call<List<Booking>> getAllBookingsByClients(@Path("id") Long id);
 
     @GET("booking/one/{id}")
     Call<Booking> getBooking(@Path("id") Long id);
-
-    @POST("booking")
-    Call<Booking> newBooking(@Body BookingRequest booking);
-
-    @PUT("booking/{id}")
-    Call<Booking> updateBooking( @Body Booking booking, @Path("number") Long id);
-
-    @DELETE("booking/{id}")
-    Call<Void> deleteBooking(@Path("number") Long id);
-
 
 }
