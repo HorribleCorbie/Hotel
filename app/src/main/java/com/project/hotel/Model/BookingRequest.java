@@ -6,6 +6,8 @@ public class BookingRequest {
     private int roomId;
     private String login;
     private String in_date;
+    private String out_date;
+    private String price;
 
     public BookingRequest(int roomId, String login, LocalDate in_date, LocalDate out_date, String price) {
         this.roomId = roomId;
@@ -16,10 +18,6 @@ public class BookingRequest {
         this.out_date = str;
         this.price = price;
     }
-
-    private String out_date;
-    private String price;
-
     public int getRoomId() {
         return roomId;
     }

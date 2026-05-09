@@ -39,4 +39,6 @@
     <string name="check_out">Дата выезда</string>
     <string name="filter_client">По клиенту</string>
     <string name="input_id_client">Выберите id клиента</string>
+    <string name="choice_room">Выберите подходящий номер.</string>
+    <string name="update_info">Измените данные бронирования.</string>
 </resources>

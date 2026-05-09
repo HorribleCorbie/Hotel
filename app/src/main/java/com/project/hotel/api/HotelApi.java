@@ -23,6 +23,8 @@ public interface HotelApi {
 
     @GET("rooms/bookings")
     Call<List<Room>> allRoomsforBookings(@Query("start") LocalDate start, @Query("end")  LocalDate end);
+    @GET("rooms/update_bookings")
+    Call<List<Room>> allRoomsforBookings(@Query("start") LocalDate start, @Query("end")  LocalDate end, @Query("id") Long id );
 
     @POST("rooms")
     Call<Room> createRoom(@Body Room room);

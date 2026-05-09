@@ -52,14 +52,15 @@ public class AdminBookingActivity extends AppCompatActivity implements OnBooking
         });
 
         navFilter();
-//        binding.btnUpdate.setOnClickListener(v -> {
-//            EditRoomDialogFragment dialog = new EditRoomDialogFragment();
-//            Bundle args = new Bundle();
-//            args.putString("title", "Выбор комнаты");
-//            args.putString("choice", "select");
-//            dialog.setArguments(args);
-//            dialog.show(getSupportFragmentManager(), "custom");
-//        });
+
+        binding.btnUpdate.setOnClickListener(v -> {
+            EditBookingDialogFragment dialog = new EditBookingDialogFragment();
+            Bundle args = new Bundle();
+            args.putString("title", "Редактирование");
+            args.putString("choice", "select");
+            dialog.setArguments(args);
+            dialog.show(getSupportFragmentManager(), "custom");
+        });
 
         binding.btnFind.setOnClickListener(v -> {
             EditBookingDialogFragment dialog = new EditBookingDialogFragment();
@@ -85,6 +86,7 @@ public class AdminBookingActivity extends AppCompatActivity implements OnBooking
     @Override
     protected void onResume() {
         super.onResume();
+        table.showAllFromDB();
         navFilter();
     }
 
@@ -185,6 +187,7 @@ public class AdminBookingActivity extends AppCompatActivity implements OnBooking
             if (!isChecked) {
                 menu.removeItem(itemId);
                 itemButton.setEnabled(true);
+
                 if (idButton == R.id.check_in) {
                     table.restartCheckInDate();
                 } else if (idButton == R.id.check_out) {
@@ -192,6 +195,7 @@ public class AdminBookingActivity extends AppCompatActivity implements OnBooking
                 } else {
                     table.restartClientID();
                 }
+
                 table.filterBookings();
                 binding.NavFilter.invalidate();
             }
@@ -236,7 +240,13 @@ public class AdminBookingActivity extends AppCompatActivity implements OnBooking
 
     @Override
     public void selectBooking(Booking booking) {
-
+        Intent intent = new Intent(this, UpdateBookingActivity.class);
+        intent.putExtra("id", booking.getId());
+        intent.putExtra("room", booking.getRoom().getNumber());
+        intent.putExtra("client", booking.getClient().getId());
+        intent.putExtra("in_date", booking.getIn_date());
+        intent.putExtra("out_date", booking.getOut_date());
+        startActivity(intent);
     }
 
     @SuppressLint("SetTextI18n")

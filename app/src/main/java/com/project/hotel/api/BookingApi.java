@@ -26,7 +26,7 @@ public interface BookingApi {
     Call<Boolean> check(@Query("id") Long id);
 
     @PUT("booking/{id}")
-    Call<Booking> updateBooking(@Path("id") Long id,  @Body Booking booking);
+    Call<Booking> updateBooking(@Path("id") Long id,  @Body BookingRequest booking);
 
     @DELETE("booking/delete/{id}")
     Call<Void> deleteBooking(@Path("id") Long id);

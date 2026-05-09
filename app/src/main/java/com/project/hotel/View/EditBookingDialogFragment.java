@@ -15,10 +15,10 @@ import androidx.fragment.app.DialogFragment;
 
 import com.project.hotel.Model.Booking;
 import com.project.hotel.Model.OnBookingFoundListener;
-import com.project.hotel.Model.OnRoomFoundListener;
-import com.project.hotel.Model.Room;
 import com.project.hotel.R;
 import com.project.hotel.api.RetrofitClient;
+
+import java.time.LocalDate;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,21 +50,32 @@ public class EditBookingDialogFragment extends DialogFragment {
         AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
 
 
-        return builder
+        AlertDialog dialog = builder
                 .setTitle(title)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setView(view)
-                .setPositiveButton("OK", (dialog, which) -> {
-                    long id;
-                    try {
-                        id = Long.parseLong(edit.getText().toString());
-                        existingBooking(id, choice);
-                    }catch (NumberFormatException e){
-                        return;
-                    }
-                })
+                .setPositiveButton("OK", null)
                 .setNegativeButton("Отмена", null)
                 .create();
+
+        dialog.setOnShowListener(d -> {
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+
+                long id;
+
+                try {
+                    id = Long.parseLong(edit.getText().toString());
+                    existingBooking(id, choice);
+                }
+                catch (NumberFormatException e) {
+                    Toast.makeText(requireContext(),
+                            "Введите число",
+                            Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
+
+        return dialog;
     }
 
     private void showErrorToast() {
@@ -111,6 +122,7 @@ public class EditBookingDialogFragment extends DialogFragment {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 Found.onBookingDeleted();
+                dismiss();
             }
 
             @Override
@@ -127,7 +139,20 @@ public class EditBookingDialogFragment extends DialogFragment {
                 if(response.isSuccessful() && response.body()!=null)
                 {
                     Booking booking = response.body();
-                    Found.selectBooking(booking);
+                    LocalDate localDate = LocalDate.parse(booking.getOut_date());
+                    if (LocalDate.now().isBefore(localDate)){
+                        Found.selectBooking(booking);
+                        dismiss();
+                    }
+                    else {
+                        AdminBookingActivity activity = (AdminBookingActivity) getActivity();
+
+                        if (activity != null) {
+                            Toast.makeText(activity,
+                                    "Это бронирование завершено",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
                 }
             }
             @Override
@@ -144,6 +169,7 @@ public class EditBookingDialogFragment extends DialogFragment {
                 {
                     Booking booking = response.body();
                     Found.onBookingFound(booking);
+                    dismiss();
                 }
             }
             @Override

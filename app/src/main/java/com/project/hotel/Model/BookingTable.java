@@ -33,7 +33,6 @@ import retrofit2.Response;
 public class BookingTable extends Table {
     public List<Booking> bookings = new ArrayList<>();
 
-    //    public List<Booking> sortList = new ArrayList<>();
     private int isActive = 0;
     private LocalDate checkInDate = null;
     private LocalDate checkOutDate = null;

@@ -18,22 +18,21 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".View.LoginActivity"
-            android:exported="false">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
+            android:exported="true">
+                        <intent-filter>
+                            <action android:name="android.intent.action.MAIN" />
+                            <category android:name="android.intent.category.LAUNCHER" />
+                        </intent-filter>
         </activity>
         <activity
             android:name=".View.AdminBookingActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="false">
         </activity>
         <activity
             android:name=".View.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".View.UpdateBookingActivity"
             android:exported="false" />
         <activity
             android:name=".View.MainClientActivity"
