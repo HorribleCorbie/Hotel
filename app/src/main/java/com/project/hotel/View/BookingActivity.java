@@ -56,7 +56,10 @@ public class BookingActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.btnBooking.setOnClickListener(v -> {
-            listenerCreationNewBooking();
+            MainClientActivity.unpaid=new BookingRequest(id_room, MainClientActivity.client.getLogin(), firstdate,
+                    enddate, String.valueOf(priceDays));
+            startActivity(new Intent(BookingActivity.this, PayActivity.class));
+            finish();
         });
 
         CalendarConstraints calendarConstraintBuilder = new CalendarConstraints.Builder()
@@ -81,27 +84,6 @@ public class BookingActivity extends AppCompatActivity {
         binding.btnBackBooking.setOnClickListener(v -> {
             startActivity(new Intent(BookingActivity.this, MainClientActivity.class));
             finish();
-        });
-    }
-
-    private void listenerCreationNewBooking() {
-        BookingRequest createBooking = new BookingRequest(id_room, MainClientActivity.client.getLogin(), firstdate,
-                enddate, String.valueOf(priceDays));
-        RetrofitClient.Bookingapi.newBooking(createBooking).enqueue(new Callback<Booking>() {
-            @Override
-            public void onResponse(Call<Booking> call, Response<Booking> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    Toast.makeText(BookingActivity.this, "Бронирование успешно создано.", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(BookingActivity.this, MainClientActivity.class));
-                    finish();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Booking> call, Throwable t) {
-                Toast.makeText(BookingActivity.this, "Ошибка на стороне сервера, попробуйте позже.", Toast.LENGTH_SHORT).show();
-                Log.e("BookingAPI", "ON FAILURE: ", t);
-            }
         });
     }
 

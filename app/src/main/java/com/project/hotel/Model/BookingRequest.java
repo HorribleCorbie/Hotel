@@ -58,4 +58,11 @@ public class BookingRequest {
         this.price = price;
     }
 
+    @Override
+    public String toString() {
+        return  "№" + roomId +
+                "\n" + in_date + ":\n" +
+                out_date +
+                "\n" + price + "₽";
+    }
 }

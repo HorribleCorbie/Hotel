@@ -29,6 +29,10 @@
             android:exported="false">
         </activity>
         <activity
+            android:name=".View.PayActivity"
+            android:exported="false">
+        </activity>
+        <activity
             android:name=".View.RegisterActivity"
             android:exported="false" />
         <activity

@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.project.hotel.api.RetrofitClient;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -32,6 +33,7 @@ public class TableWork extends Table{
             public void onResponse(Call<List<Room>> call, Response<List<Room>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     rooms = response.body();
+                    rooms.sort(Comparator.comparing(Room::getNumber));
                     showRooms(rooms);
                 }
             }

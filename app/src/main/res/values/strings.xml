@@ -41,4 +41,8 @@
     <string name="input_id_client">Выберите id клиента</string>
     <string name="choice_room">Выберите подходящий номер.</string>
     <string name="update_info">Измените данные бронирования.</string>
+    <string name="payment_done">Оплата произведена, благодарим вас за выбор нашего отеля!</string>
+    <string name="need_payment">Нажмите на кнопку, чтобы оплатить бронирование</string>
+    <string name="pay">Оплатить</string>
+    <string name="unpaid_reservations">Вам необходимо оплатить бронирование, чтобы оно было зарегистрировано, если вы его не оплатите, оно исчезнет после выхода из приложения.</string>
 </resources>

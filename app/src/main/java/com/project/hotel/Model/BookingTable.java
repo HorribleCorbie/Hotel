@@ -21,6 +21,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -84,6 +85,7 @@ public class BookingTable extends Table {
             public void onResponse(Call<List<Booking>> call, Response<List<Booking>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     bookings = response.body();
+                    bookings.sort(Comparator.comparing(Booking::getId));
                     showBookingsForAdmin(bookings);
                 }
             }
@@ -168,7 +170,8 @@ public class BookingTable extends Table {
                     bookings = response.body();
                     if (!bookings.isEmpty()) {
                         showRoomsForClient(bookings);
-                        text.setText(R.string.txt_if_user_have_bookings);
+                        text.setText(
+                                R.string.txt_if_user_have_bookings);
                     }
                 }
             }

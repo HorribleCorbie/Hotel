@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.project.hotel.Model.BookingRequest;
 import com.project.hotel.Model.BookingTable;
 import com.project.hotel.databinding.ClientMainBinding;
 
@@ -15,11 +17,16 @@ import com.project.hotel.Model.TableWork;
 import com.project.hotel.Model.User;
 import com.project.hotel.R;
 
+import java.util.List;
+
 public class MainClientActivity extends AppCompatActivity {
 
     static User client;
     BookingTable bookingTable;
     ClientMainBinding binding;
+    static BookingRequest unpaid;
+    private MenuItem booking;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,22 +35,61 @@ public class MainClientActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         TableWork table = new TableWork(binding.tableClients, this);
-        bookingTable = new BookingTable(binding.activeBookings, this );
+        bookingTable = new BookingTable(binding.activeBookings, this);
         table.showAllFromDB();
         bookingTable.showAllBookingsByClient(client.getId(), binding.txtBooking);
+
+        binding.btnPay.setOnClickListener(v -> {
+            startActivity(new Intent(MainClientActivity.this, PayActivity.class));
+            finish();
+        });
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        checkPaymentStatus();
         bookingTable.showAllBookingsByClient(client.getId(), binding.txtBooking);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_client, menu);
+        booking = menu.findItem(R.id.booking);
+        checkPaymentStatus();
+
+        binding.btnDelete.setOnClickListener(v -> {
+            unpaid = null;
+            binding.layoutPayment.setVisibility(View.GONE);
+            if (booking != null) booking.setEnabled(true);
+            getIntent().removeExtra("need_pay");
+        });
         return true;
     }
+
+    private void checkPaymentStatus() {
+        Intent intent = getIntent();
+        boolean needPay = intent.getBooleanExtra("need_pay", false);
+
+        System.out.println("PAY STATUS: " + needPay);
+
+        if (needPay) {
+            binding.layoutPayment.setVisibility(View.VISIBLE);
+            if (unpaid != null) binding.txtInfo.setText(unpaid.toString());
+            if (booking != null) booking.setEnabled(false);
+        } else {
+            unpaid = null;
+            binding.layoutPayment.setVisibility(View.GONE);
+            if (booking != null) booking.setEnabled(true);
+        }
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
