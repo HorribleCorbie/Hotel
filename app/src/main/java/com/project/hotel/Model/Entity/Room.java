@@ -1,7 +1,6 @@
-package com.project.hotel.Model;
+package com.project.hotel.Model.Entity;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 

@@ -1,31 +1,25 @@
 package com.project.hotel.Model;
 
-import static com.project.hotel.Model.Booking.BookingClientToString;
-import static com.project.hotel.Model.Booking.BookingToString;
+import static com.project.hotel.Model.Entity.Booking.BookingClientToString;
+import static com.project.hotel.Model.Entity.Booking.BookingToString;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.util.Log;
-import android.view.Gravity;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.project.hotel.Model.Entity.Booking;
 import com.project.hotel.R;
 import com.project.hotel.api.RetrofitClient;
 
-import java.time.Instant;
+import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,6 +31,15 @@ public class BookingTable extends Table {
     private int isActive = 0;
     private LocalDate checkInDate = null;
     private LocalDate checkOutDate = null;
+
+    public LocalDate getCheckOutDate() {
+        return checkOutDate;
+    }
+
+    public LocalDate getCheckInDate() {
+        return checkInDate;
+    }
+
     private Long clientID = null;
 
     public Long getClientID() {
@@ -86,7 +89,11 @@ public class BookingTable extends Table {
                 if (response.isSuccessful() && response.body() != null) {
                     bookings = response.body();
                     bookings.sort(Comparator.comparing(Booking::getId));
-                    showBookingsForAdmin(bookings);
+                    if (isActive != 0 || checkInDate != null || checkOutDate != null || clientID != null) {
+                        filterBookings();
+                    } else {
+                        showBookingsForAdmin(bookings);
+                    }
                 }
             }
 
@@ -98,39 +105,29 @@ public class BookingTable extends Table {
     }
 
     public void filterBookings() {
-
         List<Booking> sortList = new ArrayList<>();
+        LocalDate now = LocalDate.now();
 
         for (Booking booking : bookings) {
-            LocalDate date2;
+            LocalDate outDate = LocalDate.parse(booking.getOut_date());
+
             if (isActive == 1) {
-                date2 = LocalDate.parse(booking.getOut_date());
-                if (!LocalDate.now().isBefore(date2)) {
-                    continue;
-                }
+                if (now.isAfter(outDate) || now.isEqual(outDate)) continue;
             } else if (isActive == 2) {
-                date2 = LocalDate.parse(booking.getOut_date());
-                if (!LocalDate.now().isAfter(date2)) {
-                    continue;
-                }
+                if (now.isBefore(outDate) || now.isEqual(outDate)) continue;
             }
+
             if (checkInDate != null) {
-                date2 = LocalDate.parse(booking.getIn_date());
-                if (!checkInDate.isBefore(date2)) {
-                    continue;
-                }
+                LocalDate inDate = LocalDate.parse(booking.getIn_date());
+                if (checkInDate.isAfter(inDate)) continue;
             }
+
             if (checkOutDate != null) {
-                date2 = LocalDate.parse(booking.getOut_date());
-                if (!checkOutDate.isAfter(date2)) {
-                    continue;
-                }
+                if (checkOutDate.isBefore(outDate)) continue;
             }
-            if (clientID != null) {
-                Long actualID = booking.getClient().getId();
-                if (!Objects.equals(clientID, actualID)) {
-                    continue;
-                }
+
+            if (clientID != null && !Objects.equals(clientID, booking.getClient().getId())) {
+                continue;
             }
             sortList.add(booking);
         }
@@ -192,5 +189,4 @@ public class BookingTable extends Table {
             TableRoomsGenerated(tableLayout, BookingClientToString(booking));
         }
     }
-
 }

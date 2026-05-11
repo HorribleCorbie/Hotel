@@ -1,4 +1,4 @@
-package com.project.hotel.Model;
+package com.project.hotel.Model.Entity;
 
 public class User {
     private Long id;

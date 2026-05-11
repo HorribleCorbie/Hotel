@@ -9,8 +9,8 @@ import android.view.View;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import com.project.hotel.databinding.ActivityMainBinding;
-import com.project.hotel.Model.OnRoomFoundListener;
-import com.project.hotel.Model.Room;
+import com.project.hotel.Model.Interface.OnRoomFoundListener;
+import com.project.hotel.Model.Entity.Room;
 import com.project.hotel.R;
 
 

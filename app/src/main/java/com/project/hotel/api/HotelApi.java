@@ -1,6 +1,6 @@
 package com.project.hotel.api;
 
-import com.project.hotel.Model.Room;
+import com.project.hotel.Model.Entity.Room;
 
 import java.time.LocalDate;
 import java.util.List;

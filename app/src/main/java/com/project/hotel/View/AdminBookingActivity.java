@@ -10,14 +10,15 @@ import android.widget.Switch;
 
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
-import com.project.hotel.Model.Booking;
+import com.project.hotel.Model.Entity.Booking;
 import com.project.hotel.Model.BookingTable;
-import com.project.hotel.Model.OnBookingFoundListener;
-import com.project.hotel.Model.OnCLientListener;
+import com.project.hotel.Model.Interface.OnBookingFoundListener;
+import com.project.hotel.Model.Interface.OnCLientListener;
 import com.project.hotel.R;
 import com.project.hotel.databinding.AdminBookingsBinding;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
@@ -80,7 +81,21 @@ public class AdminBookingActivity extends AppCompatActivity implements OnBooking
             dialog.show(getSupportFragmentManager(), "custom");
         });
 
-
+        if (savedInstanceState != null) {
+            if (savedInstanceState.containsKey("saved_check_in")) {
+                LocalDate dateIn = (LocalDate) savedInstanceState.getSerializable("saved_check_in");
+                addSwitchToMenu(dateIn, R.id.check_in);
+            }
+            if (savedInstanceState.containsKey("saved_check_out")) {
+                LocalDate dateOut = (LocalDate) savedInstanceState.getSerializable("saved_check_out");
+                addSwitchToMenu(dateOut, R.id.check_out);
+            }
+            if (savedInstanceState.containsKey("saved_client_id")) {
+                long clientId = savedInstanceState.getLong("saved_client_id");
+                table.setClientID(clientId);
+                addSwitchToMenu(null, R.id.client_filter);
+            }
+        }
     }
 
     @Override
@@ -148,17 +163,22 @@ public class AdminBookingActivity extends AppCompatActivity implements OnBooking
                     addSwitchToMenu(checkInDate, id);
                 });
             }
-            menuItem.setEnabled(false);
             binding.drawerLayout.closeDrawer(GravityCompat.START);
             return true;
         });
     }
 
+    @SuppressLint("SetTextI18n")
     void addSwitchToMenu(LocalDate date, int idButton) {
         Menu menu = binding.NavFilter.getMenu();
 
         MenuItem itemButton = menu.findItem(idButton);
-        MenuItem newItem = menu.add(R.id.add_switch_menu, Menu.NONE, Menu.NONE, itemButton.getTitle());
+        itemButton.setEnabled(false);
+
+        int filterItemId = (idButton == R.id.check_in) ? 1001 : 1002;
+        if (idButton == R.id.client_filter) filterItemId = 1003;
+        menu.removeItem(filterItemId);
+        MenuItem newItem = menu.add(R.id.add_switch_menu, filterItemId, Menu.NONE, itemButton.getTitle());
 
         @SuppressLint("UseSwitchCompatOrMaterialCode") Switch switch1 = new Switch(this);
         switch1.setChecked(true);
@@ -254,6 +274,20 @@ public class AdminBookingActivity extends AppCompatActivity implements OnBooking
     public void selectClient(Long id, int idButton) {
         table.setClientID(id);
         addSwitchToMenu(null, idButton);
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (table.getCheckInDate() != null) {
+            outState.putSerializable("saved_check_in", table.getCheckInDate());
+        }
+        if (table.getCheckOutDate() != null) {
+            outState.putSerializable("saved_check_out", table.getCheckOutDate());
+        }
+        if (table.getClientID() != null) {
+            outState.putLong("saved_client_id", table.getClientID());
+        }
     }
 
 }

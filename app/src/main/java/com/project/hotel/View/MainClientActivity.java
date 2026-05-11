@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.project.hotel.Model.BookingRequest;
+import com.project.hotel.Model.Entity.BookingRequest;
 import com.project.hotel.Model.BookingTable;
 import com.project.hotel.databinding.ClientMainBinding;
 
@@ -14,10 +14,8 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.project.hotel.Model.TableWork;
-import com.project.hotel.Model.User;
+import com.project.hotel.Model.Entity.User;
 import com.project.hotel.R;
-
-import java.util.List;
 
 public class MainClientActivity extends AppCompatActivity {
 

@@ -9,7 +9,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import com.project.hotel.databinding.RegisterBinding;
 import com.project.hotel.Model.TextWatcherAdapter;
-import com.project.hotel.Model.User;
+import com.project.hotel.Model.Entity.User;
 import com.project.hotel.api.RetrofitClient;
 
 import retrofit2.Call;

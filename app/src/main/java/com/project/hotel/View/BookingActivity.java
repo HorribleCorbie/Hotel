@@ -3,7 +3,6 @@ package com.project.hotel.View;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,9 +15,8 @@ import androidx.core.util.Pair;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
-import com.project.hotel.Model.Booking;
-import com.project.hotel.Model.BookingRequest;
-import com.project.hotel.Model.Room;
+import com.project.hotel.Model.Entity.BookingRequest;
+import com.project.hotel.Model.Entity.Room;
 import com.project.hotel.Model.TableWork;
 import com.project.hotel.api.RetrofitClient;
 import com.project.hotel.databinding.BookingsBinding;
@@ -34,13 +32,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class BookingActivity extends AppCompatActivity {
-    //https://www.geeksforgeeks.org/android/material-design-date-picker-in-android/
-    //https://www.geeksforgeeks.org/android/more-functionalities-of-material-design-date-picker-in-android/
-    //https://stackoverflow.com/questions/35183146/how-can-i-create-a-java-8-localdate-from-a-long-epoch-time-in-milliseconds
-    //https://stackoverflow.com/questions/62739054/how-to-count-number-of-days-between-date-range-material-picker-in-andr
-    //https://stackoverflow.com/questions/203984/how-do-i-remove-repeated-elements-from-arraylist
-    //https://sites.google.com/view/javaquest/%D0%BA%D0%BD%D0%B8%D0%B3%D0%B0-%D1%80%D0%B5%D1%86%D0%B5%D0%BF%D1%82%D0%BE%D0%B2-java/%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0-%D1%81-%D0%B4%D0%B0%D1%82%D0%B0%D0%BC%D0%B8/%D0%BA%D0%B0%D0%BA-%D0%B2-java-%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%B5%D1%81%D1%82%D0%B8-%D1%81%D1%82%D1%80%D0%BE%D0%BA%D1%83-%D0%B2-%D0%B4%D0%B0%D1%82%D1%83
-
     private BookingsBinding binding;
     private int id_room;
     private LocalDate firstdate;

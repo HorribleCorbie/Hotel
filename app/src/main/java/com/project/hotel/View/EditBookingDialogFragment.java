@@ -13,8 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
-import com.project.hotel.Model.Booking;
-import com.project.hotel.Model.OnBookingFoundListener;
+import com.project.hotel.Model.Entity.Booking;
+import com.project.hotel.Model.Interface.OnBookingFoundListener;
 import com.project.hotel.R;
 import com.project.hotel.api.RetrofitClient;
 

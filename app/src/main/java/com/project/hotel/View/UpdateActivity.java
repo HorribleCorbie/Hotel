@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.project.hotel.databinding.AddNewRoomBinding;
 
-import com.project.hotel.Model.Room;
+import com.project.hotel.Model.Entity.Room;
 import com.project.hotel.api.RetrofitClient;
 
 

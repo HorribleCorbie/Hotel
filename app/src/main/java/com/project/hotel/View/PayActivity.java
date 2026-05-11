@@ -8,7 +8,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.project.hotel.Model.Booking;
+import com.project.hotel.Model.Entity.Booking;
 import com.project.hotel.api.RetrofitClient;
 import com.project.hotel.databinding.PaymentBinding;
 

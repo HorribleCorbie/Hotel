@@ -1,15 +1,11 @@
 package com.project.hotel.Model;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
-import android.view.Gravity;
 import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.project.hotel.Model.Entity.Room;
 import com.project.hotel.api.RetrofitClient;
 
 import java.util.ArrayList;

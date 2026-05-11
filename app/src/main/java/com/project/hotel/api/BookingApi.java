@@ -1,8 +1,7 @@
 package com.project.hotel.api;
 
-import com.project.hotel.Model.Booking;
-import com.project.hotel.Model.BookingRequest;
-import com.project.hotel.Model.Room;
+import com.project.hotel.Model.Entity.Booking;
+import com.project.hotel.Model.Entity.BookingRequest;
 
 import java.util.List;
 

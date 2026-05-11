@@ -11,8 +11,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
-import com.project.hotel.Model.OnRoomFoundListener;
-import com.project.hotel.Model.Room;
+import com.project.hotel.Model.Interface.OnRoomFoundListener;
+import com.project.hotel.Model.Entity.Room;
 import com.project.hotel.R;
 import com.project.hotel.api.RetrofitClient;
 import retrofit2.Call;
