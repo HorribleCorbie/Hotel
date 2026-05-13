@@ -38,6 +38,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
         <EditText
+            android:background="@android:drawable/edit_text"
             android:id="@+id/EditLogin"
             android:layout_width="0dp"
             android:layout_height="63dp"
@@ -64,6 +65,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
         <EditText
+            android:background="@android:drawable/edit_text"
             android:id="@+id/EditPassword"
             android:layout_width="0dp"
             android:layout_height="63dp"

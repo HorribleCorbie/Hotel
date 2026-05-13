@@ -29,7 +29,6 @@ public class RegisterActivity extends AppCompatActivity {
         binding.editName.addTextChangedListener(new TextWatcherAdapter() {
             @Override
             public void afterTextChanged(Editable s) {
-
                 String original = s.toString().trim();
                 String newstr = original.toLowerCase();
 
@@ -64,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
             String pass = String.valueOf(binding.editPassReg.getText());
             String log = String.valueOf(binding.editLogIn.getText());
             if (name.isEmpty() || name.length() < 2 || name.length() >= 255) {
-                Toast.makeText(this, "Имя должно быть не пустым", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Имя не должно быть пустым", Toast.LENGTH_SHORT).show();
                 return;
             }
             if (pass.isEmpty() || pass.length() < 4 || pass.length() >= 255) {

@@ -30,7 +30,6 @@ public class PayActivity extends AppCompatActivity {
         binding.btnBack.setOnClickListener(v -> {
             Intent intent = new Intent(PayActivity.this, MainClientActivity.class);
             intent.putExtra("need_pay", true);
-            intent.putExtra("delete", false);
             intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
             finish();

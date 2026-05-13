@@ -24,6 +24,7 @@ import com.project.hotel.databinding.BookingsBinding;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -93,6 +94,7 @@ public class BookingActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     try {
                         List<Room> rooms = response.body();
+                        rooms.sort(Comparator.comparing(Room::getNumber));
                         TableWork table = new TableWork(binding.availableRooms, BookingActivity.this);
                         table.showRooms(rooms);
                         List<Integer> numbers = Room.RoomstoList(rooms);

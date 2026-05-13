@@ -75,8 +75,6 @@ public class MainClientActivity extends AppCompatActivity {
         Intent intent = getIntent();
         boolean needPay = intent.getBooleanExtra("need_pay", false);
 
-        System.out.println("PAY STATUS: " + needPay);
-
         if (needPay) {
             binding.layoutPayment.setVisibility(View.VISIBLE);
             if (unpaid != null) binding.txtInfo.setText(unpaid.toString());

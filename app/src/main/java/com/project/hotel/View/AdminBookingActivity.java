@@ -289,6 +289,5 @@ public class AdminBookingActivity extends AppCompatActivity implements OnBooking
             outState.putLong("saved_client_id", table.getClientID());
         }
     }
-
 }
 

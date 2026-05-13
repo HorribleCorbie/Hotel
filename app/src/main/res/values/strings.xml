@@ -45,4 +45,5 @@
     <string name="need_payment">Нажмите на кнопку, чтобы оплатить бронирование</string>
     <string name="pay">Оплатить</string>
     <string name="unpaid_reservations">Вам необходимо оплатить бронирование, чтобы оно было зарегистрировано, если вы его не оплатите, оно исчезнет после выхода из приложения.</string>
+    <string name="digits_eng_ru">"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"</string>
 </resources>
