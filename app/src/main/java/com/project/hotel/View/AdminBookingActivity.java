@@ -155,7 +155,7 @@ public class AdminBookingActivity extends AppCompatActivity implements OnBooking
                 args.putInt("id", id);
                 dialog.setArguments(args);
                 dialog.show(getSupportFragmentManager(), "custom");
-            } else {
+            } else if(id == R.id.check_in || id==R.id.check_out){
                 materialDatePicker.clearOnPositiveButtonClickListeners();
                 materialDatePicker.show(getSupportFragmentManager(), "MATERIAL_DATE_PICKER");
                 materialDatePicker.addOnPositiveButtonClickListener(o -> {

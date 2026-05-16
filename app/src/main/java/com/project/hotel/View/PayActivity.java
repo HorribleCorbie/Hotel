@@ -34,6 +34,7 @@ public class PayActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+
         binding.checkPayment.setOnClickListener(v -> {
             listenerCreationNewBooking();
         });

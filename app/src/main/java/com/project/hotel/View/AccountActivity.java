@@ -29,6 +29,7 @@ public class AccountActivity  extends AppCompatActivity {
         binding = RegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         binding.txtTitle.setText("Ваш аккаунт");
+        binding.btnCreateUser.setText("Обновить");
 
         binding.editName.addTextChangedListener(new TextWatcherAdapter() {
             @Override
