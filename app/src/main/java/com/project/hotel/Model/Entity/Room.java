@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Objects;
 
 public class Room {
-    public int number;
-    public float price;
-    public int capacity;
-    public String comfort;
-    public float area;
+    private int number;
+    private float price;
+    private int capacity;
+    private String comfort;
+    private float area;
 
     public int getNumber() {
         return number;

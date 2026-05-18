@@ -11,8 +11,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public abstract class Table {
-    TableLayout tableLayout;
-    AppCompatActivity context;
+    protected TableLayout tableLayout;
+    protected AppCompatActivity context;
 
     public Table(TableLayout tableLayout, AppCompatActivity context) {
         this.tableLayout = tableLayout;
